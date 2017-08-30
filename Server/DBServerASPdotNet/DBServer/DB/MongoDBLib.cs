@@ -18,6 +18,7 @@ namespace DBServer.DB
         public class DBBasicGameData
         {
             public float Rating;
+            public int Ranking;
         }
             
 
