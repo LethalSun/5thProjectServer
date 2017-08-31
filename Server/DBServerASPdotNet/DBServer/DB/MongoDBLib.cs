@@ -53,6 +53,8 @@ namespace DBServer.DB
         {
             public string _id;//user ID
             public float Rating;//Rating For Match making
+            public int WinNumber;
+            public int LoseNumber;
             //public int Ranking;
         }
             

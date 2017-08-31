@@ -142,6 +142,7 @@
     <Compile Include="DB\Redis.cs" />
     <Compile Include="ErrorCode.cs" />
     <Compile Include="Main.cs" />
+    <Compile Include="PacketData.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
