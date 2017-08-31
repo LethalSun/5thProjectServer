@@ -138,6 +138,10 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\AuthTokenRepository.cs" />
+    <Compile Include="Data\BasicGameDataRepository.cs" />
+    <Compile Include="Data\GameServerRepository.cs" />
+    <Compile Include="Data\UserRepository.cs" />
     <Compile Include="DB\MongoDBLib.cs" />
     <Compile Include="DB\Redis.cs" />
     <Compile Include="ErrorCode.cs" />
@@ -149,7 +153,7 @@
     <Compile Include="UniqueSeqNumberGenerator.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Data\" />
+    <Folder Include="Request\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
