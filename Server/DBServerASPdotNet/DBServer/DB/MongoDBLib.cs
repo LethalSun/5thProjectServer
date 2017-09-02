@@ -41,23 +41,21 @@ namespace DBServer.DB
             MongoClient client = new MongoClient(ConnectString);
             return client.GetDatabase(dbName);
         }
-
-        public class DBUser
-        {
-            public string _id;// user ID
-            public Int64 UID;//unique index
-            public string PW;//pw
-        }
-
-        public class DBBasicGameData
-        {
-            public string _id;//user ID
-            public int Rating;//Rating For Match making
-            public int WinNumber;
-            public int LoseNumber;
-            //public int Ranking;
-        }
-            
-
     }
+    public class DBUser
+    {
+        public string _id;// user ID
+        public Int64 UID;//unique index
+        public string PW;//pw
+    }
+
+    public class DBBasicGameData
+    {
+        public string _id;//user ID
+        public int Rating;//Rating For Match making
+        public int WinNumber;
+        public int LoseNumber;
+        //public int Ranking;
+    }
+
 }

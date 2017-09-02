@@ -97,22 +97,132 @@ namespace DBServer
 
     //매번 유저가 게임서버와 통신할때 토큰과 게임서버 아이디를 확인한다.
     #region RE_REQ_GET_USER_AUTH
+
+    public struct RE_REQ_GET_USER_AUTH
+    {
+        public string UserID;
+        public string AuthToken;
+    }
+
+    public struct RE_RES_GET_USER_AUTH
+    {
+        public RE_RES_GET_USER_AUTH Return(ERROR_CODE error)
+        {
+            Result = (short)error;
+            return this;
+        }
+
+        public void SetResult(ERROR_CODE error)
+        {
+            Result = (short)error;
+        }
+
+        public short Result;
+    }
+
+
     #endregion
 
     //유저가 로그아웃을 하거나 비정상일때 유저의 정보를 제거한다.
     #region RE_REQ_REMOVE_USER_AUTHKEY
+    public struct RE_REQ_REMOVE_USER_AUTHKEY
+    {
+        public string UserID;
+        public string AuthToken;
+    }
+
+    public struct RE_RES_REMOVE_USER_AUTHKEY
+    {
+        public RE_RES_REMOVE_USER_AUTHKEY Return(ERROR_CODE error)
+        {
+            Result = (short)error;
+            return this;
+        }
+
+        public void SetResult(ERROR_CODE error)
+        {
+            Result = (short)error;
+        }
+
+        public short Result;
+    }
     #endregion
 
     //게임 서버가 로그인을 받으면 자신에게 입장한 유저수를 갱신한다.
     #region RE_REQ_SET_GAMSERVER_USER_NUMBER
+
+    public struct RE_REQ_SET_GAMSERVER_USER_NUMBER
+    {
+        public int ServerID;
+        public int UserNum;
+    }
+
+    public struct RE_RES_SET_GAMSERVER_USER_NUMBER
+    {
+        public RE_RES_SET_GAMSERVER_USER_NUMBER Return(ERROR_CODE error)
+        {
+            Result = (short)error;
+            return this;
+        }
+
+        public void SetResult(ERROR_CODE error)
+        {
+            Result = (short)error;
+        }
+
+        public short Result;
+    }
+
     #endregion
 
     //게임 서버가 죽었는지 안죽었는지 확인해서 레디스에 남아있는 정보를 지워주기 위한것
     #region RE_REQ_GAMESERVER_HEARTBEAT
+
+    public struct RE_REQ_GAMESERVER_HEARTBEAT
+    {
+        public int ServerID;
+    }
+
+    public struct RE_RES_GAMESERVER_HEARTBEAT
+    {
+        public RE_RES_GAMESERVER_HEARTBEAT Return(ERROR_CODE error)
+        {
+            Result = (short)error;
+            return this;
+        }
+
+        public void SetResult(ERROR_CODE error)
+        {
+            Result = (short)error;
+        }
+
+        public short Result;
+    }
     #endregion
 
     //게임 서버가 정상 종료 할경우 게임 데이터를 지운다. 근데 필요 할까?
     #region RE_REQ_REMOVE_GAMESERVER_DATA
+
+    public struct RE_REQ_REMOVE_GAMESERVER_DATA
+    {
+        public int ServerID;
+    }
+
+    public struct RE_RES_REMOVE_GAMESERVER_DATA
+    {
+        public RE_RES_REMOVE_GAMESERVER_DATA Return(ERROR_CODE error)
+        {
+            Result = (short)error;
+            return this;
+        }
+
+        public void SetResult(ERROR_CODE error)
+        {
+            Result = (short)error;
+        }
+
+        public short Result;
+    }
     #endregion
 
 
