@@ -125,15 +125,15 @@ namespace DBServer
 
     //유저가 로그아웃을 하거나 비정상일때 유저의 정보를 제거한다.
     #region RE_REQ_REMOVE_USER_AUTHKEY
-    public struct RE_REQ_REMOVE_USER_AUTHKEY
+    public struct RE_REQ_REMOVE_USER_AUTH
     {
         public string UserID;
         public string AuthToken;
     }
 
-    public struct RE_RES_REMOVE_USER_AUTHKEY
+    public struct RE_RES_REMOVE_USER_AUTH
     {
-        public RE_RES_REMOVE_USER_AUTHKEY Return(ERROR_CODE error)
+        public RE_RES_REMOVE_USER_AUTH Return(ERROR_CODE error)
         {
             Result = (short)error;
             return this;

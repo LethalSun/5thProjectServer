@@ -9,9 +9,10 @@ using System.Web.Http;
 
 namespace DBServer.Request
 {
-    public class RERequestSetGameServerUserNumberController : ApiController
+    public class RERequestRemoveUserAuthController : ApiController
     {
-        [Route("Request/ERequestSetGameServerUserNumber")]
+
+        [Route("Request/RERequestRemoveUserAuth")]
         [HttpPost]
         public async Task<DB_RES_GET_USER_INFO> Process(DB_REQ_GET_USER_INFO requestPacket)
         {

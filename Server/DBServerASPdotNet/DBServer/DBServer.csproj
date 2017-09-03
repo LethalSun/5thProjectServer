@@ -152,7 +152,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Request\DBRequestCreateUser.cs" />
     <Compile Include="Request\DBRequestGetUserInfo.cs" />
+    <Compile Include="Request\DBRequestSetUserData.cs" />
+    <Compile Include="Request\RERequestGameServerHeartBeat.cs" />
     <Compile Include="Request\RERequestGetUserAuth.cs" />
+    <Compile Include="Request\RERequestRemoveGameServerData.cs" />
+    <Compile Include="Request\RERequestRemoveUserAuth.cs" />
     <Compile Include="Request\RERequestSetGameServerUserNumber.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="TokenGenerator.cs" />
