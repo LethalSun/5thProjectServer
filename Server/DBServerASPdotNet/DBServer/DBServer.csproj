@@ -145,16 +145,20 @@
     <Compile Include="DB\MongoDBLib.cs" />
     <Compile Include="DB\Redis.cs" />
     <Compile Include="ErrorCode.cs" />
+    <Compile Include="GameServerSelector.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="PacketData.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Request\DBRequestCreateUser.cs" />
+    <Compile Include="Request\DBRequestGetUserInfo.cs" />
+    <Compile Include="Request\RERequestGetUserAuth.cs" />
+    <Compile Include="Request\RERequestSetGameServerUserNumber.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="TokenGenerator.cs" />
     <Compile Include="UniqueSeqNumberGenerator.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Request\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

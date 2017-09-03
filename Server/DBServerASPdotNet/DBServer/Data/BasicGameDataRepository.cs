@@ -12,6 +12,7 @@ namespace DBServer.Data
     {
         public static async Task AddGameData(string userID)
         {
+            //TODO: 나중에 빼야 함
             var basicRating = 1000;
 
             var gameData = new DB.DBBasicGameData()
