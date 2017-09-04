@@ -14,7 +14,7 @@ namespace LoginServer
 
         static void Main(string[] args)
         {
-            string baseAddress = "http://10.73.42.149:19000/"; // 내부에서만 접속하는 경우는 "http://localhost:19000/" 사용
+            string baseAddress = "http://*:19000/"; // 내부에서만 접속하는 경우는 "http://localhost:19000/" 사용
                                                             //string baseAddress = "http://10.73.44.51:19000/"; // 외부에서 접속할 때 서버 실행 머신의 IP를 사용
                                                             //string baseAddress = "http://*:19000/"; // 외부에서 접속할 때 할당된 IP를 자동으로 사용
 
