@@ -12,8 +12,10 @@ namespace DBServer.Request
     {
         [Route("Request/RERequestRemoveGameServerData")]
         [HttpPost]
-        public async Task<DB_RES_GET_USER_INFO> Process(DB_REQ_GET_USER_INFO requestPacket)
+        public async Task<RE_RES_REMOVE_GAMESERVER_DATA> Process(RE_REQ_REMOVE_GAMESERVER_DATA requestPacket)
         {
+            RE_RES_REMOVE_GAMESERVER_DATA responsePacket = new RE_RES_REMOVE_GAMESERVER_DATA();
+            return responsePacket;
         }
     }
 }

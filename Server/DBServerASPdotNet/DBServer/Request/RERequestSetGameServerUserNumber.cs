@@ -13,8 +13,11 @@ namespace DBServer.Request
     {
         [Route("Request/ERequestSetGameServerUserNumber")]
         [HttpPost]
-        public async Task<DB_RES_GET_USER_INFO> Process(DB_REQ_GET_USER_INFO requestPacket)
+        public async Task<RE_RES_SET_GAMSERVER_USER_NUMBER> Process(RE_REQ_SET_GAMSERVER_USER_NUMBER requestPacket)
         {
+            RE_RES_SET_GAMSERVER_USER_NUMBER responsePacket = new RE_RES_SET_GAMSERVER_USER_NUMBER();
+
+            return responsePacket;
         }
     }
 }

@@ -21,7 +21,9 @@ namespace DBServer
 
         REQ_LOGIN_INVALID_USER = 121,
         REQ_LOGIN_INVALID_PW = 122,
-        REQ_LOGIN_NO_DATA = 123,
+        REQ_LOGIN_NO_DATA = 124,
+
+        REQ_AUTH_FAIL = 125,
 
         REQ_LOGOUT_FAIL_CHECK_ID_OR_AUTHTOKEN = 123,
 

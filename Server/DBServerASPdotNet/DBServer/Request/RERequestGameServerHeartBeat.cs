@@ -12,8 +12,10 @@ namespace DBServer.Request
     {
         [Route("Request/RERequestGameServerHeartBeat")]
         [HttpPost]
-        public async Task<DB_RES_GET_USER_INFO> Process(DB_REQ_GET_USER_INFO requestPacket)
+        public async Task<RE_RES_GAMESERVER_HEARTBEAT> Process(RE_REQ_GAMESERVER_HEARTBEAT requestPacket)
         {
+            RE_RES_GAMESERVER_HEARTBEAT responsePacket = new RE_RES_GAMESERVER_HEARTBEAT();
+            return responsePacket;
         }
     }
 }

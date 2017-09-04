@@ -102,6 +102,7 @@ namespace DBServer
     {
         public string UserID;
         public string AuthToken;
+        public string GameServerAddress;
     }
 
     public struct RE_RES_GET_USER_AUTH

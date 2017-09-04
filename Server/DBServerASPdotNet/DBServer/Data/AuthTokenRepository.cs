@@ -16,18 +16,18 @@ namespace DBServer.Data
 
             await DB.Redis.SetStringAsync<DBUserSession>(userID, new DBUserSession()
                 { AuthToken = authToken,
-                  GameServerID = 1,
+                GameServerAddress = "",
                   CV = 1,
                   CDV = 1, });
         }
 
-        public static async Task<bool> CheckAuth(string userID,string authToken,int gameServerID)
+        public static async Task<bool> CheckAuth(string userID,string authToken, string gameServerAddress)
         {
             var sessionInfo = await DB.Redis.GetStringAsync<DBUserSession>(userID);
 
             if(sessionInfo.Item1 == false|| 
                 sessionInfo.Item2.AuthToken != authToken ||
-                sessionInfo.Item2.GameServerID != gameServerID)
+                sessionInfo.Item2.GameServerAddress != gameServerAddress)
 
             {
                 return false;
@@ -48,7 +48,7 @@ namespace DBServer.Data
     public struct DBUserSession
     {
         public string AuthToken;
-        public int GameServerID;
+        public string GameServerAddress;
         public short CV;// ClientVersion
         public short CDV;// ClientDataVersion
     }

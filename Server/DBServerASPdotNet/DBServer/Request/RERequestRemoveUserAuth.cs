@@ -14,8 +14,11 @@ namespace DBServer.Request
 
         [Route("Request/RERequestRemoveUserAuth")]
         [HttpPost]
-        public async Task<DB_RES_GET_USER_INFO> Process(DB_REQ_GET_USER_INFO requestPacket)
+        public async Task<RE_RES_REMOVE_USER_AUTH> Process(RE_REQ_REMOVE_USER_AUTH requestPacket)
         {
+            RE_RES_REMOVE_USER_AUTH responsePacket = new RE_RES_REMOVE_USER_AUTH();
+
+            return responsePacket;
         }
     }
 }

@@ -14,8 +14,19 @@ namespace DBServer.Request
     {
         [Route("Request/RERequestGetUserAuth")]
         [HttpPost]
-        public async Task<DB_RES_GET_USER_INFO> Process(DB_REQ_GET_USER_INFO requestPacket)
+        public async Task<RE_RES_GET_USER_AUTH> Process(RE_REQ_GET_USER_AUTH requestPacket)
         {
+            RE_RES_GET_USER_AUTH responsePacket = new RE_RES_GET_USER_AUTH();
+
+            responsePacket.SetResult(ERROR_CODE.NONE);
+
+            var isOk = await Data.AuthTokenRepository.CheckAuth(requestPacket.UserID, requestPacket.AuthToken, requestPacket.GameServerAddress);
+            if (isOk == false)
+            {
+                responsePacket.Return(ERROR_CODE.REQ_AUTH_FAIL);
+            }
+
+            return responsePacket;
         }
     }
 }
