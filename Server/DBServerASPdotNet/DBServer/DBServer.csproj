@@ -138,18 +138,31 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\AuthTokenRepository.cs" />
+    <Compile Include="Data\BasicGameDataRepository.cs" />
+    <Compile Include="Data\GameServerRepository.cs" />
+    <Compile Include="Data\UserRepository.cs" />
     <Compile Include="DB\MongoDBLib.cs" />
     <Compile Include="DB\Redis.cs" />
     <Compile Include="ErrorCode.cs" />
+    <Compile Include="GameServerSelector.cs" />
     <Compile Include="Main.cs" />
+    <Compile Include="PacketData.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Request\DBRequestCreateUser.cs" />
+    <Compile Include="Request\DBRequestGetUserInfo.cs" />
+    <Compile Include="Request\DBRequestSetUserData.cs" />
+    <Compile Include="Request\RERequestGameServerHeartBeat.cs" />
+    <Compile Include="Request\RERequestGetUserAuth.cs" />
+    <Compile Include="Request\RERequestRemoveGameServerData.cs" />
+    <Compile Include="Request\RERequestRemoveUserAuth.cs" />
+    <Compile Include="Request\RERequestSetGameServerUserNumber.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="TokenGenerator.cs" />
     <Compile Include="UniqueSeqNumberGenerator.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
