@@ -1,8 +1,2 @@
 #pragma once
-class pch
-{
-public:
-	pch();
-	~pch();
-};
-
+#include <iostream>
