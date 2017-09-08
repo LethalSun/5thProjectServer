@@ -2,6 +2,13 @@
 #include <stdarg.h>
 #include "boost\log\trivial.hpp"
 
+/*
+부스트 로그의 trivial을 사용한 간단한 로거 구현
+LoggerBase를 상속받아서 다른 방식으로 구현예정
+색깔이 나왔으면 좋겠다. boost로그의 sink를 조작하면
+가능할것 같은데.
+*/
+
 namespace MDUtillity
 {
 	const int consoleLogMaxLength = 256;

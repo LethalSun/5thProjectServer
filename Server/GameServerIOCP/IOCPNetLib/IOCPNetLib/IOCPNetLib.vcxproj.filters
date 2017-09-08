@@ -5,15 +5,26 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="HTTPLib">
+      <UniqueIdentifier>{702cfda4-50f9-4a5b-91aa-175d956cc7a8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
     <ClInclude Include="CircularBuffer.h" />
     <ClInclude Include="Logger.h" />
+    <ClInclude Include="happyhttp.h">
+      <Filter>HTTPLib</Filter>
+    </ClInclude>
+    <ClInclude Include="HttpNetwork.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="CircularBuffer.cpp" />
     <ClCompile Include="Logger.cpp" />
+    <ClCompile Include="happyhttp.cpp">
+      <Filter>HTTPLib</Filter>
+    </ClCompile>
+    <ClCompile Include="HttpNetwork.cpp" />
   </ItemGroup>
 </Project>
