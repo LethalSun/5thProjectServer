@@ -1,46 +1,51 @@
 #pragma once
 #include "pch.h"
 
-class CircularBuffer
+namespace MDUtillity
 {
-public:
-	CircularBuffer(size_t capacity);
-	~CircularBuffer();
 
-	void Reset();
 
-	size_t CheckAvailableSpaceSize();
-	
-	size_t GetWritedSize()const;
-	
-	size_t GetNextSendSize()const;
+	class CircularBuffer
+	{
+	public:
+		CircularBuffer(size_t capacity);
+		~CircularBuffer();
 
-	char* GetWritablePosition()const;
+		void Reset();
 
-	void Commit(size_t length);
+		size_t CheckAvailableSpaceSize();
 
-	char* GetbufferStartposition()const;
-private:
-	void allocateSecondaryRegion();
+		size_t GetWritedSize()const;
 
-	size_t getPrimaryRegionAvailableSpaceSize();
+		size_t GetNextSendSize()const;
 
-	size_t getBeforePrimaryRegionSpaceSize();
+		char* GetWritablePosition()const;
 
-	size_t getSecondaryRegionAvailableSpaceSize();
-	
+		void Commit(size_t length);
 
-private:
+		char* GetbufferStartposition()const;
+	private:
+		void allocateSecondaryRegion();
 
-	char * _buffer;
-	char * _bufferEnd;
+		size_t getPrimaryRegionAvailableSpaceSize();
 
-	char * _primaryRegion;
-	size_t _primaryRegionSize;
+		size_t getBeforePrimaryRegionSpaceSize();
 
-	char* _secondaryRegion;
-	size_t _secondaryRegionSize;
+		size_t getSecondaryRegionAvailableSpaceSize();
 
-	size_t _capacity;
-};
+
+	private:
+
+		char * _buffer;
+		char * _bufferEnd;
+
+		char * _primaryRegion;
+		size_t _primaryRegionSize;
+
+		char* _secondaryRegion;
+		size_t _secondaryRegionSize;
+
+		size_t _capacity;
+	};
+}
 

@@ -9,9 +9,11 @@
   <ItemGroup>
     <ClInclude Include="pch.h" />
     <ClInclude Include="CircularBuffer.h" />
+    <ClInclude Include="Logger.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="CircularBuffer.cpp" />
+    <ClCompile Include="Logger.cpp" />
   </ItemGroup>
 </Project>
