@@ -1,8 +1,13 @@
 #pragma once
-class HttpNetwork
+
+namespace MDServerNetLib
 {
-public:
-	HttpNetwork();
-	~HttpNetwork();
-};
+	class HttpNetwork
+	{
+	public:
+		HttpNetwork();
+		~HttpNetwork();
+	};
+
+}
 

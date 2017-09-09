@@ -148,20 +148,28 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="CircularBuffer.h" />
+    <ClInclude Include="ErrorCode.h" />
     <ClInclude Include="happyhttp.h" />
     <ClInclude Include="HttpNetwork.h" />
+    <ClInclude Include="IOCPNetwork.h" />
     <ClInclude Include="Logger.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="ServerProperty.h" />
+    <ClInclude Include="Session.h" />
+    <ClInclude Include="SessionPool.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CircularBuffer.cpp" />
     <ClCompile Include="happyhttp.cpp" />
     <ClCompile Include="HttpNetwork.cpp" />
+    <ClCompile Include="IOCPNetwork.cpp" />
     <ClCompile Include="Logger.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Session.cpp" />
+    <ClCompile Include="SessionPool.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

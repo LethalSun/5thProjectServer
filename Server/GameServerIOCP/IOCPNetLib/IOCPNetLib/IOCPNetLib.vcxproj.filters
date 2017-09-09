@@ -17,6 +17,11 @@
       <Filter>HTTPLib</Filter>
     </ClInclude>
     <ClInclude Include="HttpNetwork.h" />
+    <ClInclude Include="IOCPNetwork.h" />
+    <ClInclude Include="Session.h" />
+    <ClInclude Include="SessionPool.h" />
+    <ClInclude Include="ErrorCode.h" />
+    <ClInclude Include="ServerProperty.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -26,5 +31,8 @@
       <Filter>HTTPLib</Filter>
     </ClCompile>
     <ClCompile Include="HttpNetwork.cpp" />
+    <ClCompile Include="IOCPNetwork.cpp" />
+    <ClCompile Include="Session.cpp" />
+    <ClCompile Include="SessionPool.cpp" />
   </ItemGroup>
 </Project>

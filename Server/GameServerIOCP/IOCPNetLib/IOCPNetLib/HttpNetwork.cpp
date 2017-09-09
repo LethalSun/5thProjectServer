@@ -1,12 +1,15 @@
 #include "pch.h"
 #include "HttpNetwork.h"
 
-
-HttpNetwork::HttpNetwork()
+namespace MDServerNetLib
 {
-}
+	HttpNetwork::HttpNetwork()
+	{
+	}
 
 
-HttpNetwork::~HttpNetwork()
-{
+	HttpNetwork::~HttpNetwork()
+	{
+	}
+
 }
