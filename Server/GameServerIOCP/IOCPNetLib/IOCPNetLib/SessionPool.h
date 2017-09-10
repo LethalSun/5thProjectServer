@@ -1,8 +1,12 @@
 #pragma once
-class SessionPool
+namespace MDServerNetLib
 {
-public:
-	SessionPool();
-	~SessionPool();
-};
+	class SessionPool
+	{
+	public:
+		SessionPool();
+		~SessionPool();
+	};
+}
+
 

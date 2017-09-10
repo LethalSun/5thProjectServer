@@ -1,12 +1,14 @@
 #include "pch.h"
 #include "SessionPool.h"
 
-
-SessionPool::SessionPool()
+namespace MDServerNetLib
 {
-}
+	SessionPool::SessionPool()
+	{
+	}
 
 
-SessionPool::~SessionPool()
-{
+	SessionPool::~SessionPool()
+	{
+	}
 }

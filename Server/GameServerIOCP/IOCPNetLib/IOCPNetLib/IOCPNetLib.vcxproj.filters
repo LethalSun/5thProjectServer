@@ -21,7 +21,7 @@
     <ClInclude Include="Session.h" />
     <ClInclude Include="SessionPool.h" />
     <ClInclude Include="ErrorCode.h" />
-    <ClInclude Include="ServerProperty.h" />
+    <ClInclude Include="SeverProperty.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />

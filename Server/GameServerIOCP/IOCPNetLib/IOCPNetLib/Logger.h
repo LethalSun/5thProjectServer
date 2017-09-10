@@ -19,7 +19,7 @@ namespace MDUtillity
 		INFO = 2,
 		DEBUG = 3,
 		WARN = 4,
-		ERROR = 5,
+		ERR = 5,
 	};
 
 	class LoggerBase
@@ -55,7 +55,7 @@ namespace MDUtillity
 				debug(logText);
 				break;
 
-			case LogType::ERROR:
+			case LogType::ERR:
 				info(logText);
 				break;
 
