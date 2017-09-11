@@ -52,6 +52,9 @@ namespace MDServerNetLib
 		SocketContext _socketContext;
 		
 		//send 버퍼를 가지고 있다.
+		///각 버퍼는 세션의 post,flush 하는 부분에서 락을 걸어야 한다.
+		///아토믹으로 최소한의 락으로 동기화 하는것은 일단 완성하고 고민해 보자.
+		///대신 스핀락과 크리티컬 섹션이 결합된 동기화 객체를 사용한다.
 		MDUtillity::CircularBuffer _sendBuffer;
 		MDUtillity::CircularBuffer _recvBuffer;
 	private:
@@ -68,7 +71,9 @@ namespace MDServerNetLib
 
 		std::atomic<bool> _isSendAvailable{ false };
 		std::atomic<bool> _isConnected{ false };
-		//std::atomic<long> _refCount{ 0 };
+		//비동기 입출력 을 할때마다 증가 시키고 완료 될때 마다 감소 시켜서 0일때만
+		//세션을 풀로 돌려 보낸다.
+		std::atomic<long> _refCount{ 0 };
 	};
 
 }

@@ -67,8 +67,6 @@ namespace MDUtillity
 		}
 	}
 
-
-
 	size_t CircularBuffer::CheckAvailableSpaceSize()
 	{
 		if (_secondaryRegion != nullptr)
