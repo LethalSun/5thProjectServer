@@ -57,10 +57,19 @@ namespace MDServerNetLib
 		//다시 센드 요청을 한다.
 		//받기 완료시 받은 패킷을 다시 패킷으로 만들어서 _recvQueue에 넣어 준다
 		//보내기 처리는 _sendQueue에 패킷이 있다면 그패킷의 세션버퍼에 패킷을 쓰고
-		//센드 예약을 해준다. 만약 한번에 다 보내지지 않고 완료큐에 들어와서
+		//센드 예약을 해준다. 하지만 센드 큐는 언제나 한개의 스레드가 전담한다.
+		//왜냐면 스레드 하나가 큐에서 패킷을 뺏는데 다른쓰레드가 같은 세션의 패킷을뺐다면
+		//같은 세션에 두개의 스레드가 접근할것이고 어떤 한세션에 동시에 접근하게 되면
+		//순서보장을 위해서 락을 걸거나 다른 처리를 해야 한다. 그러므로 하나의 스레드에서
+		//일단 현재있는 패킷을 다 센드예약을 걸어 놓으면 두개의 스레드가 동시에 접근 할수 없다.
+		//만약 한번에 다 보내지지 않고 완료큐에 들어와서
 		//워커 스레드에 들어 왔다면 뭔가 문제가 있는 세션이므로 종료한다.
 		//만약 서버의 네트워크에 문제가 있다면 역시 종료해야 한다.
 		unsigned int WINAPI workerThreadFunc(LPVOID lpParam);
+
+		void doIOCPJob();
+		void doSendJob();
+
 		int receiveProcess(Session* sessionAddr, int dataSize);
 		void addRecvPacketToQueue(const int sessionIndex, const short pktId, const short bodysize, char* datapos);
 
@@ -88,6 +97,7 @@ namespace MDServerNetLib
 		//외부와는 큐를 이용해서 로직과 패킷을 주고 받는다.
 		PacketQueueConccurency* _recvQueue;
 		PacketQueueConccurency* _sendQueue;
+		std::atomic<bool> _isSendQueueAvailable{ true };
 	};
 }
 

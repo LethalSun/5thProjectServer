@@ -147,6 +147,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\ThirdPartylib\nlohmann_Json\json.hpp" />
     <ClInclude Include="CircularBuffer.h" />
     <ClInclude Include="ErrorCode.h" />
     <ClInclude Include="happyhttp.h" />

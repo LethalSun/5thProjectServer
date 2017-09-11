@@ -18,8 +18,7 @@ namespace MDServerNetLib
 	struct IOContext
 	{
 		WSAOVERLAPPED	overlapped;
-		//TODO: 이넘을 이용해서 리시브인지 센드인지 억셉트 인지 구별 할수 있다.
-		char*			Buffer = nullptr;
+		//TODO: enum을 이용해서 리시브인지 센드인지 억셉트 인지 구별 할수 있다.
 		WSABUF			wsaBuf;
 	};
 
@@ -37,6 +36,15 @@ namespace MDServerNetLib
 		~Session();
 
 		bool IsConnected()const { return _isConnected.load(); }
+
+		bool OnRecvComplete();
+
+		bool CommitSendBuffer(const char* data, size_t len);
+		bool FlushSendBuffer();
+
+		void SendCompeletion(DWORD transferred);
+		void RecvCompeletion(DWORD transferred);
+
 	private:
 
 	public:
@@ -60,7 +68,7 @@ namespace MDServerNetLib
 
 		std::atomic<bool> _isSendAvailable{ false };
 		std::atomic<bool> _isConnected{ false };
-		std::atomic<long> _refCount{ 0 };
+		//std::atomic<long> _refCount{ 0 };
 	};
 
 }

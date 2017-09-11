@@ -8,9 +8,14 @@
     <Filter Include="HTTPLib">
       <UniqueIdentifier>{702cfda4-50f9-4a5b-91aa-175d956cc7a8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Utillity">
+      <UniqueIdentifier>{68753ad4-0c7e-4a66-86c2-5b33ca5492c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PrecompiledHeader">
+      <UniqueIdentifier>{82c501cf-3435-4be4-be7c-9a018fc68b50}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="pch.h" />
     <ClInclude Include="CircularBuffer.h" />
     <ClInclude Include="Logger.h" />
     <ClInclude Include="happyhttp.h">
@@ -22,9 +27,14 @@
     <ClInclude Include="SessionPool.h" />
     <ClInclude Include="ErrorCode.h" />
     <ClInclude Include="SeverProperty.h" />
+    <ClInclude Include="..\..\..\ThirdPartylib\nlohmann_Json\json.hpp">
+      <Filter>Utillity</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>PrecompiledHeader</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="pch.cpp" />
     <ClCompile Include="CircularBuffer.cpp" />
     <ClCompile Include="Logger.cpp" />
     <ClCompile Include="happyhttp.cpp">
@@ -34,5 +44,8 @@
     <ClCompile Include="IOCPNetwork.cpp" />
     <ClCompile Include="Session.cpp" />
     <ClCompile Include="SessionPool.cpp" />
+    <ClCompile Include="pch.cpp">
+      <Filter>PrecompiledHeader</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
