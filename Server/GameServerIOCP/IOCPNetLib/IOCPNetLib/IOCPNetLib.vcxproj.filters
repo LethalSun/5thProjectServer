@@ -11,13 +11,11 @@
     <Filter Include="Utillity">
       <UniqueIdentifier>{68753ad4-0c7e-4a66-86c2-5b33ca5492c7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="PrecompiledHeader">
-      <UniqueIdentifier>{82c501cf-3435-4be4-be7c-9a018fc68b50}</UniqueIdentifier>
+    <Filter Include="Common">
+      <UniqueIdentifier>{56a12613-86d2-4b3e-911e-58f1ae804118}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CircularBuffer.h" />
-    <ClInclude Include="Logger.h" />
     <ClInclude Include="happyhttp.h">
       <Filter>HTTPLib</Filter>
     </ClInclude>
@@ -27,16 +25,17 @@
     <ClInclude Include="SessionPool.h" />
     <ClInclude Include="ErrorCode.h" />
     <ClInclude Include="SeverProperty.h" />
-    <ClInclude Include="..\..\..\ThirdPartylib\nlohmann_Json\json.hpp">
+    <ClInclude Include="..\..\Common\Packet.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="CircularBuffer.h">
       <Filter>Utillity</Filter>
     </ClInclude>
-    <ClInclude Include="pch.h">
-      <Filter>PrecompiledHeader</Filter>
+    <ClInclude Include="Logger.h">
+      <Filter>Utillity</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CircularBuffer.cpp" />
-    <ClCompile Include="Logger.cpp" />
     <ClCompile Include="happyhttp.cpp">
       <Filter>HTTPLib</Filter>
     </ClCompile>
@@ -44,8 +43,17 @@
     <ClCompile Include="IOCPNetwork.cpp" />
     <ClCompile Include="Session.cpp" />
     <ClCompile Include="SessionPool.cpp" />
-    <ClCompile Include="pch.cpp">
-      <Filter>PrecompiledHeader</Filter>
+    <ClCompile Include="..\..\Common\Packet.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="CircularBuffer.cpp">
+      <Filter>Utillity</Filter>
+    </ClCompile>
+    <ClCompile Include="Logger.cpp">
+      <Filter>Utillity</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\ThirdPartylib\json\jsoncpp.cpp">
+      <Filter>Utillity</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

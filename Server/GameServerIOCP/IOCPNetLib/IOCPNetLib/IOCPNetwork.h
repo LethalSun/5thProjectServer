@@ -1,5 +1,13 @@
 #pragma once
-#include "pch.h"
+
+#pragma comment(lib,"ws2_32")
+
+#include <iostream>
+#include <winsock2.h>
+#include <Ws2tcpip.h>
+#include <thread>
+#include <concurrent_queue.h>
+#include <vector>
 #include "SeverProperty.h"
 #include "ErrorCode.h"
 

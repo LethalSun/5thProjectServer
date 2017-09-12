@@ -75,6 +75,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>C:\dev\5thSemesterProjectServer\Server\ThirdPartylib;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -98,12 +99,13 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <SDLCheck>true</SDLCheck>
-      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <SDLCheck>false</SDLCheck>
+      <PrecompiledHeaderFile>
+      </PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -147,28 +149,25 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\ThirdPartylib\nlohmann_Json\json.hpp" />
+    <ClInclude Include="..\..\Common\Packet.h" />
     <ClInclude Include="CircularBuffer.h" />
     <ClInclude Include="ErrorCode.h" />
     <ClInclude Include="happyhttp.h" />
     <ClInclude Include="HttpNetwork.h" />
     <ClInclude Include="IOCPNetwork.h" />
     <ClInclude Include="Logger.h" />
-    <ClInclude Include="pch.h" />
     <ClInclude Include="Session.h" />
     <ClInclude Include="SessionPool.h" />
     <ClInclude Include="SeverProperty.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\ThirdPartylib\json\jsoncpp.cpp" />
+    <ClCompile Include="..\..\Common\Packet.cpp" />
     <ClCompile Include="CircularBuffer.cpp" />
     <ClCompile Include="happyhttp.cpp" />
     <ClCompile Include="HttpNetwork.cpp" />
     <ClCompile Include="IOCPNetwork.cpp" />
     <ClCompile Include="Logger.cpp" />
-    <ClCompile Include="pch.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
-    </ClCompile>
     <ClCompile Include="Session.cpp" />
     <ClCompile Include="SessionPool.cpp" />
   </ItemGroup>

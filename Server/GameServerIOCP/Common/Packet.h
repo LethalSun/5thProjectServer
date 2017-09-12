@@ -2,7 +2,7 @@
 
 #include <string>
 #include <vector>
-#include "..\json\json\json.h"
+#include <json\json\json.h>
 
 namespace Packet
 {
@@ -103,7 +103,7 @@ namespace Packet
 		std::string					ID;
 		std::string					AuthToken;
 		unsigned					NumOfTile;
-		std::vector<int>			ShipOnTileInfo;
+		std::string					ShipOnTileInfo;
 	};
 
 	//게임서버 배 배치 정보 입력 답변

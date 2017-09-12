@@ -1,4 +1,4 @@
-#include "pch.h"
+
 #include "IOCPNetwork.h"
 #include "Logger.h"
 #include "SeverProperty.h"
@@ -270,7 +270,7 @@ namespace MDServerNetLib
 			continue;
 			*/
 
-			Session* session = _sessionPool->AllockSession();
+			Session* session = _sessionPool->AllocateSession();
 
 			if (session == nullptr)
 			{

@@ -1,4 +1,4 @@
-#include "pch.h"
+
 #include "Session.h"
 
 namespace MDServerNetLib
@@ -8,18 +8,16 @@ namespace MDServerNetLib
 		_recvBuffer{ recvBufLen },
 		_maxRecvBufLen{ recvBufLen },
 		_maxSendBufLen{ sendBufLen },
-		_sessionPoolIndex{ indexForPool }
+		_sessionPoolIndex{ indexForPool },
+		index{ indexForPool }
 	{
+
 		ZeroMemory(&_socketContext.recvContext.overlapped, sizeof(WSAOVERLAPPED));
-		_socketContext.recvContext.wsaBuf.buf = _socketContext.recvContext.Buffer = new char[_maxRecvBufLen];
-		_socketContext.recvContext.wsaBuf.len = _maxRecvBufLen;
-		_socketContext.sendContext.wsaBuf.buf = _socketContext.sendContext.Buffer = new char[_maxSendBufLen];
-		_socketContext.sendContext.wsaBuf.len = _maxSendBufLen;
 	}
 
 	Session::~Session()
 	{
-		delete[] _socketContext.recvContext.Buffer;
-		delete[] _socketContext.sendContext.Buffer;
 	}
+
+	//TODO: 버퍼는 세션내의 원형 버퍼에서 매번 보낼때 가져온다.
 }

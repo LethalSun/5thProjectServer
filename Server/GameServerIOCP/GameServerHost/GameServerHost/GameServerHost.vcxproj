@@ -75,6 +75,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>C:\dev\5thSemesterProjectServer\Server\ThirdPartylib;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -148,6 +149,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\IOCPNetLib\IOCPNetLib\IOCPNetLib.vcxproj">
+      <Project>{33e63fc6-b276-4c20-8772-02c0de469030}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\LogicLib\LogicLib\LogicLib.vcxproj">
+      <Project>{dd99fa9b-af83-4cdb-aa8e-984cae27d788}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

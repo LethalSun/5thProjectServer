@@ -1,5 +1,6 @@
 #pragma once
-#include "pch.h"
+#include <WinSock2.h>
+#include <atomic>
 #include "CircularBuffer.h"
 #include "SeverProperty.h"
 
@@ -48,6 +49,7 @@ namespace MDServerNetLib
 	private:
 
 	public:
+		const int index;
 		//오버랩디드 구조체를 가지고 있다.
 		SocketContext _socketContext;
 		

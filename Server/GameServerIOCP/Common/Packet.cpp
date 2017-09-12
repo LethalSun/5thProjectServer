@@ -107,7 +107,7 @@ namespace Packet
 		ID = root.get("ID", "").asString();
 		AuthToken = root.get("AuthToken", "").asString();
 		NumOfTile = root.get("NumOfTile", 0).asInt();
-		ShipOnTileInfo = root.get("ShipOnTileInfo", 0).asInt();
+		ShipOnTileInfo = root.get("ShipOnTileInfo", "").asString();
 	}
 
 	void GAMESEVER_RES_SHIP_DEPLOY_INFO::Serialize( Json::Value& root )
