@@ -16,7 +16,7 @@ namespace MDServerNetLib
 
 		//get session by socket
 		Session* GetSeesionBySocketFD(SOCKET socket);
-		Session* GetSessionNByIndex(int index);
+		Session* GetSessionByIndex(int index);
 		//alloc new session
 		Session* AllocateSession();
 

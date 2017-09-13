@@ -14,9 +14,11 @@ namespace MDUtillity
 
 		size_t CheckAvailableSpaceSize();
 
+		void Remove(size_t len);
+
 		size_t GetWritedSize()const;
 
-		size_t GetNextSendSize()const;
+		size_t GetContiguiousSize()const;
 
 		char* GetWritablePosition()const;
 

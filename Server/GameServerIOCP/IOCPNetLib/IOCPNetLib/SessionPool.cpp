@@ -38,7 +38,7 @@ namespace MDServerNetLib
 		return nullptr;
 	}
 
-	Session * SessionPool::GetSessionNByIndex(int index)
+	Session * SessionPool::GetSessionByIndex(int index)
 	{
 		for (int i = 0; i < _maxObjectNum; ++i)
 		{

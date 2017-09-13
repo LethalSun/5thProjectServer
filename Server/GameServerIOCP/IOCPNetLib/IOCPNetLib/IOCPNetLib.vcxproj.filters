@@ -34,6 +34,9 @@
     <ClInclude Include="Logger.h">
       <Filter>Utillity</Filter>
     </ClInclude>
+    <ClInclude Include="PacketRaw.h">
+      <Filter>Common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="happyhttp.cpp">

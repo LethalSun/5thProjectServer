@@ -8,6 +8,7 @@
 #include <thread>
 #include <concurrent_queue.h>
 #include <vector>
+#include "PacketRaw.h"
 #include "SeverProperty.h"
 #include "ErrorCode.h"
 
@@ -23,7 +24,7 @@ namespace MDServerNetLib
 	class ServerProperty;
 	class SessionPool;
 	class Session;
-	using PacketQueueConccurency = concurrency::concurrent_queue<PacketInfo>;
+	using PacketQueueConccurency = concurrency::concurrent_queue<PacketRaw>;
 }
 
 namespace MDServerNetLib
@@ -39,7 +40,7 @@ namespace MDServerNetLib
 		NET_ERROR_CODE init();
 		NET_ERROR_CODE SetPacketQueue(PacketQueueConccurency* recvQue, PacketQueueConccurency* sendQue);
 
-		PacketInfo GetReceivedPacketTemp();
+		PacketRaw GetReceivedPacketTemp();
 
 		void TempPushSendPacketQueue(const int pSessionIndex, const short pPacketId, const short pSize, const char * pMsg);
 
@@ -59,6 +60,7 @@ namespace MDServerNetLib
 
 		//새로운 클라이언트를 받아 들인다.
 		bool acceptThreadFunc();
+		bool sendThreadFunc();
 
 		//워커 스레드는 컴플리트 포트 처리와, 보내기 처리를 해준다.
 		//컴플리트 포트는 보내기 완료시 보낸만큼 버퍼를 비워주고 버퍼가 남아 있다면
@@ -73,8 +75,7 @@ namespace MDServerNetLib
 		//만약 한번에 다 보내지지 않고 완료큐에 들어와서
 		//워커 스레드에 들어 왔다면 뭔가 문제가 있는 세션이므로 종료한다.
 		//만약 서버의 네트워크에 문제가 있다면 역시 종료해야 한다.
-		unsigned int WINAPI workerThreadFunc(LPVOID lpParam);
-
+		DWORD WINAPI workerThreadFunc(LPVOID lpParam); 
 		void doIOCPJob();
 		void doSendJob();
 
@@ -93,7 +94,7 @@ namespace MDServerNetLib
 		//스레드들
 		///세션을 받는 스레드
 		std::thread _acceptThread;
-		///센드 큐에 있는 패킷을 각각의 세션의 버퍼에 쓰는 스레드.
+		///센드를 예약을 전담하는 스레드
 		std::thread _sendThread;
 		///센드 버퍼에 있는 내용을 입출력 예약하고 리시브 버퍼의 내용을 처리해서 큐에 넣는다.
 		ThreadPool _threads;

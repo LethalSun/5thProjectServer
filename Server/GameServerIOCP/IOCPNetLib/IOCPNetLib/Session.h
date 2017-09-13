@@ -1,6 +1,7 @@
 #pragma once
 #include <WinSock2.h>
 #include <atomic>
+#include <Windows.h>
 #include "CircularBuffer.h"
 #include "SeverProperty.h"
 
@@ -15,11 +16,17 @@ namespace MDServerNetLib
 		DR_COMPLETION_ERROR,
 		DR_SENDFLUSH_ERROR
 	};
+	enum class IOType
+	{
+		IO_NONE,
+		IO_SEND,
+		IO_RECV,
+	};
 
 	struct IOContext
 	{
 		WSAOVERLAPPED	overlapped;
-		//TODO: enum을 이용해서 리시브인지 센드인지 억셉트 인지 구별 할수 있다.
+		IOType			sessionIOtype;
 		WSABUF			wsaBuf;
 	};
 
@@ -37,16 +44,28 @@ namespace MDServerNetLib
 		~Session();
 
 		bool IsConnected()const { return _isConnected.load(); }
+		void SetConnected(bool boolean) { _isConnected.store(boolean); }
 
-		bool OnRecvComplete();
-
-		bool CommitSendBuffer(const char* data, size_t len);
+		bool PostSendBuffer(PacketRaw& pkt);
 		bool FlushSendBuffer();
 
-		void SendCompeletion(DWORD transferred);
-		void RecvCompeletion(DWORD transferred);
+		bool PostRecv();
 
+		void CompleteSend(DWORD transferred);
+		void CompleteRecv(DWORD transferred);
+
+		void AddRef();
+		void ReleaseRef();
+
+		void DisconnectSync();
+
+		DisconnectReason GetDisconnectReason() { return _disconnectReason; }
+		bool SetDisconnectReason(DisconnectReason dr);
+
+		bool Reset();
+		
 	private:
+		void release();
 
 	public:
 		const int index;
@@ -64,6 +83,7 @@ namespace MDServerNetLib
 		const int _maxSendBufLen;
 		const int _sessionPoolIndex;
 
+		CRITICAL_SECTION _spinlockMutex;
 
 		int _sendBufRemainLenth = 0;
 		int _sendBufStartPos = 0;
@@ -76,6 +96,8 @@ namespace MDServerNetLib
 		//비동기 입출력 을 할때마다 증가 시키고 완료 될때 마다 감소 시켜서 0일때만
 		//세션을 풀로 돌려 보낸다.
 		std::atomic<long> _refCount{ 0 };
+
+		DisconnectReason _disconnectReason{ DisconnectReason::DR_NONE };
 	};
 
 }

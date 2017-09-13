@@ -87,12 +87,55 @@ namespace MDUtillity
 		}
 	}
 
+	void CircularBuffer::Remove(size_t len)
+	{
+		size_t cnt = len;
+
+		if (_primaryRegionSize > 0)
+		{
+			size_t aRemove = (cnt > _primaryRegionSize) ? _primaryRegionSize : cnt;
+			_primaryRegionSize -= aRemove;
+			_primaryRegion += aRemove;
+			cnt -= aRemove;
+		}
+
+		if (cnt > 0 && _secondaryRegionSize > 0)
+		{
+			size_t bRemove = (cnt > _secondaryRegionSize) ? _secondaryRegionSize : cnt;
+			_secondaryRegionSize -= bRemove;
+			_secondaryRegion += bRemove;
+			cnt -= bRemove;
+		}
+
+		if (_primaryRegionSize == 0)
+		{
+			if (_secondaryRegionSize > 0)
+			{
+				/// 앞으로 당겨 붙이기
+				if (_secondaryRegion != _buffer)
+					memmove(_buffer, _secondaryRegion, _secondaryRegionSize);
+
+				_primaryRegion = _buffer;
+				_primaryRegionSize = _secondaryRegionSize;
+				_secondaryRegion = nullptr;
+				_secondaryRegionSize = 0;
+			}
+			else
+			{
+				_secondaryRegion = nullptr;
+				_secondaryRegionSize = 0;
+				_primaryRegion = _buffer;
+				_primaryRegionSize = 0;
+			}
+		}
+	}
+
 	size_t CircularBuffer::GetWritedSize()const
 	{
 		return _primaryRegionSize + _secondaryRegionSize;
 	}
 
-	size_t CircularBuffer::GetNextSendSize()const
+	size_t CircularBuffer::GetContiguiousSize()const
 	{
 		if (_primaryRegionSize > 0)
 		{

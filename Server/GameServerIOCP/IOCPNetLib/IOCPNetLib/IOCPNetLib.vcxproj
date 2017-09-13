@@ -156,6 +156,7 @@
     <ClInclude Include="HttpNetwork.h" />
     <ClInclude Include="IOCPNetwork.h" />
     <ClInclude Include="Logger.h" />
+    <ClInclude Include="PacketRaw.h" />
     <ClInclude Include="Session.h" />
     <ClInclude Include="SessionPool.h" />
     <ClInclude Include="SeverProperty.h" />
