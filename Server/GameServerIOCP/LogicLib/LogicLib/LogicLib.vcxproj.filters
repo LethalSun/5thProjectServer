@@ -11,11 +11,13 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="Match.h" />
     <ClInclude Include="Tile.h" />
+    <ClInclude Include="PacketProcessor.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Match.cpp" />
     <ClCompile Include="Tile.cpp" />
+    <ClCompile Include="PacketProcessor.cpp" />
   </ItemGroup>
 </Project>

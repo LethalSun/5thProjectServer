@@ -160,6 +160,7 @@
     <ClInclude Include="Session.h" />
     <ClInclude Include="SessionPool.h" />
     <ClInclude Include="SeverProperty.h" />
+    <ClInclude Include="SpinLockGuard.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\ThirdPartylib\json\jsoncpp.cpp" />

@@ -6,6 +6,7 @@
 #include <winsock2.h>
 #include <Ws2tcpip.h>
 #include <thread>
+#include <chrono>
 #include <concurrent_queue.h>
 #include <vector>
 #include "PacketRaw.h"

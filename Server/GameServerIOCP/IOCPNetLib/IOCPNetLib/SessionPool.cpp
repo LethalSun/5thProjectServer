@@ -30,7 +30,7 @@ namespace MDServerNetLib
 		for (int i = 0; i < _maxObjectNum; ++i)
 		{
 			//TODO:우선 세션이 사용가능한지 확인.
-			if (_sessionPool[i]->_socketContext.clntSocket == socket)
+			if (_sessionPool[i]->_clntSocket == socket)
 			{
 				return _sessionPool[i];
 			}

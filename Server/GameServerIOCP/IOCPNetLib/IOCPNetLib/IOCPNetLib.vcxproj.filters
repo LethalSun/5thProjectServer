@@ -37,6 +37,9 @@
     <ClInclude Include="PacketRaw.h">
       <Filter>Common</Filter>
     </ClInclude>
+    <ClInclude Include="SpinLockGuard.h">
+      <Filter>Utillity</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="happyhttp.cpp">

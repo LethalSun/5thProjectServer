@@ -91,9 +91,7 @@ namespace MDServerNetLib
 	//TODO: 사실 이거는 패킷 프로세스에 있어야 할것.
 	void IOCPNetwork::TempPushSendPacketQueue(const int sessionIndex, const short packetId, const short size, const char * msg)
 	{
-		PacketRaw pkt;
-
-		pkt.SetPacketRaw((Packet::PacketId)packetId,sessionIndex, size, msg);
+		PacketRaw pkt(sessionIndex,(Packet::PacketId)packetId, size, msg);
 
 		_sendQueue->push(pkt);
 	}
@@ -284,37 +282,24 @@ namespace MDServerNetLib
 				continue;
 			}
 
-			session->_socketContext.clntSocket = clientSocket;
-
+			session->_clntSocket = clientSocket;
+			session->SetConnected(true);
+			session->SetSendable(true);
 
 			if (CreateIoCompletionPort((HANDLE)clientSocket, _cpHandle, (ULONG_PTR)session, 0) != _cpHandle)
 			{
 				ret = WSAGetLastError();
-				//TODO:컴플리션포트와 세션 연결실패 로그
 				_logger->Write(MDUtillity::LogType::ERR, "%s | session add to CP Faild", __FUNCTION__);
-				//이유는? ret 에 뭔가 나와 있겠지.
 				continue;
 			}
-
-			//리시브 예약,
-			ret = WSARecv(clientSocket,
-				&(session->_socketContext.recvContext.wsaBuf),
-				1,
-				&recvByte,
-				&flag,
-				&session->_socketContext.recvContext.overlapped,
-				NULL);
-
-			if (SOCKET_ERROR == ret)
+			
+			if (session->PostRecv())
 			{
-				ret = WSAGetLastError();
-				if (ret != WSA_IO_PENDING)
-				{
-					return FALSE;
-				}
+				_logger->Write(MDUtillity::LogType::INFO, "%s | WSARecv Faild", __FUNCTION__);
 			}
+			
 		}
-		return false;
+		return true;
 	}
 
 #pragma endregion
@@ -399,6 +384,7 @@ namespace MDServerNetLib
 		else if (ioContext->sessionIOtype == IOType::IO_SEND)
 		{
 			//센드 버퍼를 처리해 준다.
+			sessionAddr->CompleteSend(dataSize);
 		}
 
 #pragma endregion
@@ -412,6 +398,7 @@ namespace MDServerNetLib
 
 #pragma endregion
 
+		delete ioContext;
 
 	}
 
@@ -439,7 +426,7 @@ namespace MDServerNetLib
 		}
 		//TODO:한번 다처리하고 양보하기 원래 이렇게 하는게 아니라 로직에서 그냥 바로 센드예약을 거는게 가장 깔끔 할까?
 		//만약에 로직한바퀴 돌때마다 cp에 센드를 위한 워커스레드를 깨우는걸 PostQueuedCompletionStatus함수로 해주는건?
-		Sleep(0);
+		std::this_thread::sleep_for(std::chrono::milliseconds(0));
 	}
 
 	int IOCPNetwork::receiveProcess(Session * sessionAddr, int dataSize)
@@ -479,7 +466,14 @@ namespace MDServerNetLib
 				}
 			}
 
-			addRecvPacketToQueue(sessionAddr->index,pktHeader->_id,pktHeader->_bodySize,&bufferStart[readPos]);
+			auto str = new char[pktHeader->_bodySize];
+
+			memcpy_s(str, pktHeader->_bodySize, &bufferStart[readPos], pktHeader->_bodySize);
+
+			addRecvPacketToQueue(sessionAddr->index,pktHeader->_id,pktHeader->_bodySize,str);
+
+			delete[] str;
+
 			readPos += pktHeader->_bodySize;
 		}
 
@@ -492,6 +486,10 @@ namespace MDServerNetLib
 
 	void IOCPNetwork::addRecvPacketToQueue(const int sessionIndex, const short pktId, const short bodysize, char * datapos)
 	{
+		PacketRaw pkt(sessionIndex, (Packet::PacketId)pktId, bodysize, datapos);
+
+		_recvQueue->push(pkt);
+
 	}
 
 
