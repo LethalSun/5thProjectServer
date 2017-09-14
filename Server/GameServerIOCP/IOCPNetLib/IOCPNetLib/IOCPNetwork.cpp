@@ -193,17 +193,11 @@ namespace MDServerNetLib
 #pragma region makeSessionPool
 	bool IOCPNetwork::makeSessionPool()
 	{
-		//TODO:유니크 ptr을 사용할수 있다. 여기서 세션풀을 동적 할당했으므로  딜리트 해야 하는데
-
-		auto sessionNum = _property.MaxClientCount + _property.ExtraClientCount;
-		auto recvBufSize = _property.MaxClientRecvBufferSize;
-		auto sendBufSize = _property.MaxClientSendBufferSize;
-
 		_sessionPool = std::unique_ptr<SessionPool>(
 			new SessionPool(
-				sessionNum,
-				recvBufSize,
-				sendBufSize)
+				_property.MaxClientCount + _property.ExtraClientCount,
+				_property.MaxClientRecvBufferSize,
+				_property.MaxClientSendBufferSize)
 			);
 		return true;
 	}

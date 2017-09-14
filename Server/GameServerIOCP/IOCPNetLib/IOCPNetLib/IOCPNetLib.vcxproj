@@ -155,6 +155,7 @@
     <ClInclude Include="happyhttp.h" />
     <ClInclude Include="HttpNetwork.h" />
     <ClInclude Include="IOCPNetwork.h" />
+    <ClInclude Include="JsonFileReader.h" />
     <ClInclude Include="Logger.h" />
     <ClInclude Include="PacketRaw.h" />
     <ClInclude Include="Session.h" />

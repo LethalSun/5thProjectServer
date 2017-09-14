@@ -12,6 +12,7 @@
     <ClInclude Include="Match.h" />
     <ClInclude Include="Tile.h" />
     <ClInclude Include="PacketProcessor.h" />
+    <ClInclude Include="LogicMain.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -19,5 +20,6 @@
     <ClCompile Include="Match.cpp" />
     <ClCompile Include="Tile.cpp" />
     <ClCompile Include="PacketProcessor.cpp" />
+    <ClCompile Include="LogicMain.cpp" />
   </ItemGroup>
 </Project>

@@ -36,6 +36,7 @@ namespace MDServerNetLib
 		auto dest = _sendBuffer.GetWritablePosition();
 		auto header = PacketHeader{ pkt._packetId,pkt._bodySize };
 
+		//TODO: 함수로 빼보자.
 		memcpy_s(dest, _sendBuffer.CheckAvailableSpaceSize(), &header, PacketHeaderSize);
 		memcpy_s(dest + PacketHeaderSize, _sendBuffer.CheckAvailableSpaceSize() - PacketHeaderSize, pkt._body.c_str(), pkt._bodySize);
 
@@ -79,14 +80,6 @@ namespace MDServerNetLib
 
 		DWORD sendBytes = 0;
 		DWORD flag = 0;
-
-		auto ret = WSASend(_clntSocket,
-			&(sendContext->wsaBuf),
-			1,
-			&sendBytes,
-			flag,
-			(LPWSAOVERLAPPED)sendContext,
-			NULL);
 
 		if (SOCKET_ERROR == WSASend(_clntSocket,&(sendContext->wsaBuf),
 			1,&sendBytes,flag,(LPWSAOVERLAPPED)sendContext,NULL))
