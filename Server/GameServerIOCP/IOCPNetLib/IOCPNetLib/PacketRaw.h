@@ -19,7 +19,7 @@ namespace MDServerNetLib
 
 	struct PacketRaw
 	{
-		PacketRaw(int sessionIdx, Packet::PacketId id, int bodySize, const char * body)
+		PacketRaw(int sessionIdx, short id, short bodySize, const char * body)
 			: _packetId{ id },
 			_sessionIdx{sessionIdx},
 			_bodySize{ bodySize },

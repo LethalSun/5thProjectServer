@@ -91,7 +91,7 @@ namespace MDServerNetLib
 	//TODO: 사실 이거는 패킷 프로세스에 있어야 할것.
 	void IOCPNetwork::TempPushSendPacketQueue(const int sessionIndex, const short packetId, const short size, const char * msg)
 	{
-		PacketRaw pkt(sessionIndex,(Packet::PacketId)packetId, size, msg);
+		PacketRaw pkt(sessionIndex,packetId, size, msg);
 
 		_sendQueue->push(pkt);
 	}
@@ -486,7 +486,8 @@ namespace MDServerNetLib
 
 	void IOCPNetwork::addRecvPacketToQueue(const int sessionIndex, const short pktId, const short bodysize, char * datapos)
 	{
-		PacketRaw pkt(sessionIndex, (Packet::PacketId)pktId, bodysize, datapos);
+		auto in = static_cast<Packet::PacketId>(pktId);
+		PacketRaw pkt(sessionIndex, pktId, bodysize, datapos);
 
 		_recvQueue->push(pkt);
 

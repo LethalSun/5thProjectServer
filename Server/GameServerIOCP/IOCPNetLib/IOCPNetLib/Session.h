@@ -17,19 +17,12 @@ namespace MDServerNetLib
 		DR_COMPLETION_ERROR,
 		DR_SENDFLUSH_ERROR
 	};
+
 	enum class IOType
 	{
 		IO_NONE,
 		IO_SEND,
 		IO_RECV,
-	};
-
-	struct IOContext
-	{
-		WSAOVERLAPPED	overlapped;
-		IOType			sessionIOtype;
-		Session*		session;
-		WSABUF			wsaBuf;
 	};
 
 	class Session
@@ -79,6 +72,14 @@ namespace MDServerNetLib
 		std::atomic<bool> _isSendAvailable{ false };
 		std::atomic<bool> _isConnected{ false };
 		std::atomic<long> _refCount{ 0 };//비동기 입출력 을 할때마다 증가 시키고 완료 될때 마다 감소 시켜서 0일때만 세션을 풀로 돌려 보낸다.
+	};
+
+	struct IOContext
+	{
+		WSAOVERLAPPED	overlapped;
+		IOType			sessionIOtype;
+		Session*		session;
+		WSABUF			wsaBuf;
 	};
 
 }
