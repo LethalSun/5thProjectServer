@@ -1,10 +1,18 @@
 #pragma once
-
+#include <fstream>
+#include <string>
+#include "ServerProperty.h"
 namespace MDUtillity
 {
-	class JsonFileReader
+	class PropertyFileReader
 	{
+	public:
+		PropertyFileReader(std::string filePath);
+		~PropertyFileReader();
+	private:
+		std::string _filePath;
 
+		MDServerNetLib::ServerProperty _property;
 	};
 
 }

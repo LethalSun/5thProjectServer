@@ -9,19 +9,19 @@ namespace Packet
 	class IJsonSerializable
 	{
 	public:
-		virtual ~IJsonSerializable( void ) {};
-		virtual void Serialize( Json::Value& root ) =0;
-		virtual void Deserialize( Json::Value& root ) =0;
+		virtual ~IJsonSerializable(void) {};
+		virtual void Serialize(Json::Value& root) = 0;
+		virtual void Deserialize(Json::Value& root) = 0;
 	};
 
 	class CJsonSerializer
 	{
 	public:
-		static bool Serialize( IJsonSerializable* pObj, std::string& output );
-		static bool Deserialize( IJsonSerializable* pObj, std::string& input );
+		static bool Serialize(IJsonSerializable* pObj, std::string& output);
+		static bool Deserialize(IJsonSerializable* pObj, std::string& input);
 
 	private:
-		CJsonSerializer( void ) {};
+		CJsonSerializer(void) {};
 	};
 
 	// C++ IOCP서버와 Unity C#이 통신하기 위한 패킷 정의
@@ -29,10 +29,10 @@ namespace Packet
 	class GAMESEVER_REQ_GAMESERVER_ENTER : public IJsonSerializable
 	{
 	public:
-		GAMESEVER_REQ_GAMESERVER_ENTER( void ) {}
-		virtual ~GAMESEVER_REQ_GAMESERVER_ENTER( void ) {}
-		virtual void Serialize ( Json::Value& root );
-		virtual void Deserialize( Json::Value& root );
+		GAMESEVER_REQ_GAMESERVER_ENTER(void) {}
+		virtual ~GAMESEVER_REQ_GAMESERVER_ENTER(void) {}
+		virtual void Serialize(Json::Value& root);
+		virtual void Deserialize(Json::Value& root);
 
 		std::string					ID;
 		std::string					AuthToken;
@@ -43,10 +43,10 @@ namespace Packet
 	class GAMESEVER_RES_GAMESERVER_ENTER : public IJsonSerializable
 	{
 	public:
-		GAMESEVER_RES_GAMESERVER_ENTER( void ) {}
-		virtual ~GAMESEVER_RES_GAMESERVER_ENTER( void ) {}
-		virtual void Serialize ( Json::Value& root );
-		virtual void Deserialize( Json::Value& root );
+		GAMESEVER_RES_GAMESERVER_ENTER(void) {}
+		virtual ~GAMESEVER_RES_GAMESERVER_ENTER(void) {}
+		virtual void Serialize(Json::Value& root);
+		virtual void Deserialize(Json::Value& root);
 
 		int							Result;
 	};
@@ -55,10 +55,10 @@ namespace Packet
 	class GAMESEVER_NTF_NEW_USER : public IJsonSerializable
 	{
 	public:
-		GAMESEVER_NTF_NEW_USER( void ) {}
-		virtual ~GAMESEVER_NTF_NEW_USER( void ) {}
-		virtual void Serialize ( Json::Value& root );
-		virtual void Deserialize( Json::Value& root );
+		GAMESEVER_NTF_NEW_USER(void) {}
+		virtual ~GAMESEVER_NTF_NEW_USER(void) {}
+		virtual void Serialize(Json::Value& root);
+		virtual void Deserialize(Json::Value& root);
 
 		std::string					NewUserID;
 		std::string					NewUserIndex;
@@ -68,10 +68,10 @@ namespace Packet
 	class GAMESEVER_REQ_GAMESERVER_INFO : public IJsonSerializable
 	{
 	public:
-		GAMESEVER_REQ_GAMESERVER_INFO( void ) {}
-		virtual ~GAMESEVER_REQ_GAMESERVER_INFO( void ) {}
-		virtual void Serialize ( Json::Value& root );
-		virtual void Deserialize( Json::Value& root );
+		GAMESEVER_REQ_GAMESERVER_INFO(void) {}
+		virtual ~GAMESEVER_REQ_GAMESERVER_INFO(void) {}
+		virtual void Serialize(Json::Value& root);
+		virtual void Deserialize(Json::Value& root);
 
 		std::string					ID;
 		std::string					AuthToken;
@@ -81,10 +81,10 @@ namespace Packet
 	class GAMESEVER_RES_GAMESERVER_INFO : public IJsonSerializable
 	{
 	public:
-		GAMESEVER_RES_GAMESERVER_INFO( void ) {}
-		virtual ~GAMESEVER_RES_GAMESERVER_INFO( void ) {}
-		virtual void Serialize ( Json::Value& root );
-		virtual void Deserialize( Json::Value& root );
+		GAMESEVER_RES_GAMESERVER_INFO(void) {}
+		virtual ~GAMESEVER_RES_GAMESERVER_INFO(void) {}
+		virtual void Serialize(Json::Value& root);
+		virtual void Deserialize(Json::Value& root);
 
 		int							Result;
 		int							ServerUserNum;
@@ -95,10 +95,10 @@ namespace Packet
 	class GAMESEVER_REQ_SHIP_DEPLOY_INFO : public IJsonSerializable
 	{
 	public:
-		GAMESEVER_REQ_SHIP_DEPLOY_INFO( void ) {}
-		virtual ~GAMESEVER_REQ_SHIP_DEPLOY_INFO( void ) {}
-		virtual void Serialize ( Json::Value& root );
-		virtual void Deserialize( Json::Value& root );
+		GAMESEVER_REQ_SHIP_DEPLOY_INFO(void) {}
+		virtual ~GAMESEVER_REQ_SHIP_DEPLOY_INFO(void) {}
+		virtual void Serialize(Json::Value& root);
+		virtual void Deserialize(Json::Value& root);
 
 		std::string					ID;
 		std::string					AuthToken;
@@ -110,10 +110,10 @@ namespace Packet
 	class GAMESEVER_RES_SHIP_DEPLOY_INFO : public IJsonSerializable
 	{
 	public:
-		GAMESEVER_RES_SHIP_DEPLOY_INFO( void ) {}
-		virtual ~GAMESEVER_RES_SHIP_DEPLOY_INFO( void ) {}
-		virtual void Serialize ( Json::Value& root );
-		virtual void Deserialize( Json::Value& root );
+		GAMESEVER_RES_SHIP_DEPLOY_INFO(void) {}
+		virtual ~GAMESEVER_RES_SHIP_DEPLOY_INFO(void) {}
+		virtual void Serialize(Json::Value& root);
+		virtual void Deserialize(Json::Value& root);
 
 		int							Result;
 	};
@@ -122,10 +122,10 @@ namespace Packet
 	class GAMESEVER_REQ_GAME_READY : public IJsonSerializable
 	{
 	public:
-		GAMESEVER_REQ_GAME_READY( void ) {}
-		virtual ~GAMESEVER_REQ_GAME_READY( void ) {}
-		virtual void Serialize ( Json::Value& root );
-		virtual void Deserialize( Json::Value& root );
+		GAMESEVER_REQ_GAME_READY(void) {}
+		virtual ~GAMESEVER_REQ_GAME_READY(void) {}
+		virtual void Serialize(Json::Value& root);
+		virtual void Deserialize(Json::Value& root);
 
 		std::string					ID;
 		std::string					AuthToken;
@@ -135,10 +135,10 @@ namespace Packet
 	class GAMESEVER_RES_GAME_READY : public IJsonSerializable
 	{
 	public:
-		GAMESEVER_RES_GAME_READY( void ) {}
-		virtual ~GAMESEVER_RES_GAME_READY( void ) {}
-		virtual void Serialize ( Json::Value& root );
-		virtual void Deserialize( Json::Value& root );
+		GAMESEVER_RES_GAME_READY(void) {}
+		virtual ~GAMESEVER_RES_GAME_READY(void) {}
+		virtual void Serialize(Json::Value& root);
+		virtual void Deserialize(Json::Value& root);
 
 		int							Result;
 	};
@@ -147,10 +147,10 @@ namespace Packet
 	class GAMESEVER_NTF_GAME_START : public IJsonSerializable
 	{
 	public:
-		GAMESEVER_NTF_GAME_START( void ) {}
-		virtual ~GAMESEVER_NTF_GAME_START( void ) {}
-		virtual void Serialize ( Json::Value& root );
-		virtual void Deserialize( Json::Value& root );
+		GAMESEVER_NTF_GAME_START(void) {}
+		virtual ~GAMESEVER_NTF_GAME_START(void) {}
+		virtual void Serialize(Json::Value& root);
+		virtual void Deserialize(Json::Value& root);
 
 		int							Result;
 	};
@@ -159,10 +159,10 @@ namespace Packet
 	class GAMESEVER_REQ_BOMB : public IJsonSerializable
 	{
 	public:
-		GAMESEVER_REQ_BOMB( void ) {}
-		virtual ~GAMESEVER_REQ_BOMB( void ) {}
-		virtual void Serialize ( Json::Value& root );
-		virtual void Deserialize( Json::Value& root );
+		GAMESEVER_REQ_BOMB(void) {}
+		virtual ~GAMESEVER_REQ_BOMB(void) {}
+		virtual void Serialize(Json::Value& root);
+		virtual void Deserialize(Json::Value& root);
 
 		std::string					ID;
 		std::string					AuthToken;
@@ -173,10 +173,10 @@ namespace Packet
 	class GAMESEVER_RES_BOMB : public IJsonSerializable
 	{
 	public:
-		GAMESEVER_RES_BOMB( void ) {}
-		virtual ~GAMESEVER_RES_BOMB( void ) {}
-		virtual void Serialize ( Json::Value& root );
-		virtual void Deserialize( Json::Value& root );
+		GAMESEVER_RES_BOMB(void) {}
+		virtual ~GAMESEVER_RES_BOMB(void) {}
+		virtual void Serialize(Json::Value& root);
+		virtual void Deserialize(Json::Value& root);
 
 		int							Result;
 		int							BombedTile;
@@ -186,10 +186,10 @@ namespace Packet
 	class GAMESEVER_NTF_BOMB : public IJsonSerializable
 	{
 	public:
-		GAMESEVER_NTF_BOMB( void ) {}
-		virtual ~GAMESEVER_NTF_BOMB( void ) {}
-		virtual void Serialize ( Json::Value& root );
-		virtual void Deserialize( Json::Value& root );
+		GAMESEVER_NTF_BOMB(void) {}
+		virtual ~GAMESEVER_NTF_BOMB(void) {}
+		virtual void Serialize(Json::Value& root);
+		virtual void Deserialize(Json::Value& root);
 
 		int							Result;
 		int							BombedTile;
@@ -199,10 +199,10 @@ namespace Packet
 	class GAMESEVER_NTF_GAMEND : public IJsonSerializable
 	{
 	public:
-		GAMESEVER_NTF_GAMEND( void ) {}
-		virtual ~GAMESEVER_NTF_GAMEND( void ) {}
-		virtual void Serialize ( Json::Value& root );
-		virtual void Deserialize( Json::Value& root );
+		GAMESEVER_NTF_GAMEND(void) {}
+		virtual ~GAMESEVER_NTF_GAMEND(void) {}
+		virtual void Serialize(Json::Value& root);
+		virtual void Deserialize(Json::Value& root);
 
 		int							Result;
 	};
@@ -211,10 +211,10 @@ namespace Packet
 	class GAMSERVER_REQ_USER_HEARTBEAT : public IJsonSerializable
 	{
 	public:
-		GAMSERVER_REQ_USER_HEARTBEAT( void ) {}
-		virtual ~GAMSERVER_REQ_USER_HEARTBEAT( void ) {}
-		virtual void Serialize ( Json::Value& root );
-		virtual void Deserialize( Json::Value& root );
+		GAMSERVER_REQ_USER_HEARTBEAT(void) {}
+		virtual ~GAMSERVER_REQ_USER_HEARTBEAT(void) {}
+		virtual void Serialize(Json::Value& root);
+		virtual void Deserialize(Json::Value& root);
 
 		std::string					ID;
 		std::string					AuthToken;
@@ -224,10 +224,10 @@ namespace Packet
 	class GAMSERVER_RES_USER_HEARTBEAT : public IJsonSerializable
 	{
 	public:
-		GAMSERVER_RES_USER_HEARTBEAT( void ) {}
-		virtual ~GAMSERVER_RES_USER_HEARTBEAT( void ) {}
-		virtual void Serialize ( Json::Value& root );
-		virtual void Deserialize( Json::Value& root );
+		GAMSERVER_RES_USER_HEARTBEAT(void) {}
+		virtual ~GAMSERVER_RES_USER_HEARTBEAT(void) {}
+		virtual void Serialize(Json::Value& root);
+		virtual void Deserialize(Json::Value& root);
 
 		int							Result;
 	};
@@ -236,23 +236,23 @@ namespace Packet
 	class GAMSERVER_REQ_USER_LOGOUT : public IJsonSerializable
 	{
 	public:
-		GAMSERVER_REQ_USER_LOGOUT( void ) {}
-		virtual ~GAMSERVER_REQ_USER_LOGOUT( void ) {}
-		virtual void Serialize ( Json::Value& root );
-		virtual void Deserialize( Json::Value& root );
+		GAMSERVER_REQ_USER_LOGOUT(void) {}
+		virtual ~GAMSERVER_REQ_USER_LOGOUT(void) {}
+		virtual void Serialize(Json::Value& root);
+		virtual void Deserialize(Json::Value& root);
 
 		std::string					ID;
 		std::string					AuthToken;
 	};
 
 	//게임서버 로그아웃 답변 답변이 오면 끊는다.
-	class GAMSERVER_RES_USER_LOGIN : public IJsonSerializable
+	class GAMSERVER_RES_USER_LOGOUT : public IJsonSerializable
 	{
 	public:
-		GAMSERVER_RES_USER_LOGIN( void ) {}
-		virtual ~GAMSERVER_RES_USER_LOGIN( void ) {}
-		virtual void Serialize ( Json::Value& root );
-		virtual void Deserialize( Json::Value& root );
+		GAMSERVER_RES_USER_LOGOUT(void) {}
+		virtual ~GAMSERVER_RES_USER_LOGOUT(void) {}
+		virtual void Serialize(Json::Value& root);
+		virtual void Deserialize(Json::Value& root);
 
 		int							Result;
 	};
@@ -261,34 +261,34 @@ namespace Packet
 	class GAMSERVER_NTF_USER_LOGOUT : public IJsonSerializable
 	{
 	public:
-		GAMSERVER_NTF_USER_LOGOUT( void ) {}
-		virtual ~GAMSERVER_NTF_USER_LOGOUT( void ) {}
-		virtual void Serialize ( Json::Value& root );
-		virtual void Deserialize( Json::Value& root );
+		GAMSERVER_NTF_USER_LOGOUT(void) {}
+		virtual ~GAMSERVER_NTF_USER_LOGOUT(void) {}
+		virtual void Serialize(Json::Value& root);
+		virtual void Deserialize(Json::Value& root);
 
 		int							Result;
 	};
 
 	enum PacketId
 	{
-		ID_GAMESEVER_REQ_GAMESERVER_ENTER			= 101,
-		ID_GAMESEVER_RES_GAMESERVER_ENTER			= 102,
-		ID_GAMESEVER_NTF_NEW_USER			= 103,
-		ID_GAMESEVER_REQ_GAMESERVER_INFO			= 104,
-		ID_GAMESEVER_RES_GAMESERVER_INFO			= 105,
-		ID_GAMESEVER_REQ_SHIP_DEPLOY_INFO			= 106,
-		ID_GAMESEVER_RES_SHIP_DEPLOY_INFO			= 107,
-		ID_GAMESEVER_REQ_GAME_READY			= 108,
-		ID_GAMESEVER_RES_GAME_READY			= 109,
-		ID_GAMESEVER_NTF_GAME_START			= 110,
-		ID_GAMESEVER_REQ_BOMB			= 111,
-		ID_GAMESEVER_RES_BOMB			= 112,
-		ID_GAMESEVER_NTF_BOMB			= 113,
-		ID_GAMESEVER_NTF_GAMEND			= 114,
-		ID_GAMSERVER_REQ_USER_HEARTBEAT			= 115,
-		ID_GAMSERVER_RES_USER_HEARTBEAT			= 116,
-		ID_GAMSERVER_REQ_USER_LOGOUT			= 117,
-		ID_GAMSERVER_RES_USER_LOGIN			= 118,
-		ID_GAMSERVER_NTF_USER_LOGOUT			= 119,
+		ID_GAMESEVER_REQ_GAMESERVER_ENTER = 101,
+		ID_GAMESEVER_RES_GAMESERVER_ENTER = 102,
+		ID_GAMESEVER_NTF_NEW_USER = 103,
+		ID_GAMESEVER_REQ_GAMESERVER_INFO = 104,
+		ID_GAMESEVER_RES_GAMESERVER_INFO = 105,
+		ID_GAMESEVER_REQ_SHIP_DEPLOY_INFO = 106,
+		ID_GAMESEVER_RES_SHIP_DEPLOY_INFO = 107,
+		ID_GAMESEVER_REQ_GAME_READY = 108,
+		ID_GAMESEVER_RES_GAME_READY = 109,
+		ID_GAMESEVER_NTF_GAME_START = 110,
+		ID_GAMESEVER_REQ_BOMB = 111,
+		ID_GAMESEVER_RES_BOMB = 112,
+		ID_GAMESEVER_NTF_BOMB = 113,
+		ID_GAMESEVER_NTF_GAMEND = 114,
+		ID_GAMSERVER_REQ_USER_HEARTBEAT = 115,
+		ID_GAMSERVER_RES_USER_HEARTBEAT = 116,
+		ID_GAMSERVER_REQ_USER_LOGOUT = 117,
+		ID_GAMSERVER_RES_USER_LOGOUT = 118,
+		ID_GAMSERVER_NTF_USER_LOGOUT = 119,
 	};
 }
