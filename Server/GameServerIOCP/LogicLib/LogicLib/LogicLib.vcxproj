@@ -148,6 +148,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="LogicMain.h" />
     <ClInclude Include="Match.h" />
     <ClInclude Include="PacketProcessor.h" />
     <ClInclude Include="pch.h" />
@@ -155,6 +156,7 @@
     <ClInclude Include="Tile.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="LogicMain.cpp" />
     <ClCompile Include="Match.cpp" />
     <ClCompile Include="PacketProcessor.cpp" />
     <ClCompile Include="pch.cpp">
@@ -163,6 +165,11 @@
     </ClCompile>
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Tile.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\IOCPNetLib\IOCPNetLib\IOCPNetLib.vcxproj">
+      <Project>{33e63fc6-b276-4c20-8772-02c0de469030}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -28,7 +28,7 @@ namespace MDServerNetLib
 
 		std::atomic<int> _allocatedObjectCount{ 0 };
 
-		
+		//±×³É º¤ÅÍ »ç¿ëÇØµµ µÊ.
 		concurrency::concurrent_vector<Session*> _sessionPool;
 
 		concurrency::concurrent_queue<int> _freeindex;

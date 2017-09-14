@@ -40,6 +40,9 @@
     <ClInclude Include="SpinLockGuard.h">
       <Filter>Utillity</Filter>
     </ClInclude>
+    <ClInclude Include="JsonFileReader.h">
+      <Filter>Utillity</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="happyhttp.cpp">
