@@ -3,7 +3,7 @@
 #include <atomic>
 #include <Windows.h>
 #include "CircularBuffer.h"
-#include "SeverProperty.h"
+#include "ServerProperty.h"
 #include "PacketRaw.h"
 
 namespace MDServerNetLib

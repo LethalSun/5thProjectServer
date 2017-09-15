@@ -1,7 +1,7 @@
 
 #include "IOCPNetwork.h"
 #include "Logger.h"
-#include "SeverProperty.h"
+#include "ServerProperty.h"
 #include "SessionPool.h"
 #include "Session.h"
 namespace MDServerNetLib

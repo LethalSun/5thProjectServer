@@ -24,7 +24,6 @@
     <ClInclude Include="Session.h" />
     <ClInclude Include="SessionPool.h" />
     <ClInclude Include="ErrorCode.h" />
-    <ClInclude Include="SeverProperty.h" />
     <ClInclude Include="..\..\Common\Packet.h">
       <Filter>Common</Filter>
     </ClInclude>
@@ -40,9 +39,8 @@
     <ClInclude Include="SpinLockGuard.h">
       <Filter>Utillity</Filter>
     </ClInclude>
-    <ClInclude Include="JsonFileReader.h">
-      <Filter>Utillity</Filter>
-    </ClInclude>
+    <ClInclude Include="MyJsonReader.h" />
+    <ClInclude Include="ServerProperty.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="happyhttp.cpp">

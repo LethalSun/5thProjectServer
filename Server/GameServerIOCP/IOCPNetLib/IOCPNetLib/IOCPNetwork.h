@@ -10,7 +10,7 @@
 #include <concurrent_queue.h>
 #include <vector>
 #include "PacketRaw.h"
-#include "SeverProperty.h"
+#include "ServerProperty.h"
 #include "ErrorCode.h"
 
 namespace MDUtillity

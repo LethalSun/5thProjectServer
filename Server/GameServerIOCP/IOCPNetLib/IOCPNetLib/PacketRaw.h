@@ -2,7 +2,7 @@
 #include <memory>
 #include <string>
 #include "../../Common/Packet.h"
-#include "SeverProperty.h"
+#include "ServerProperty.h"
 namespace MDServerNetLib
 {
 #pragma pack(push, 1)
