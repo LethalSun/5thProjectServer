@@ -8,10 +8,12 @@ namespace MDServerNetLib
 {
 
 	IOCPNetwork::IOCPNetwork(const ServerProperty*  config,
-		MDUtillity::LoggerBase* logger)
+		MDUtillity::LoggerBase* logger, PacketQueueConccurency* recvQue, PacketQueueConccurency* sendQue)
+		:_recvQueue{ recvQue },
+		_sendQueue{ sendQue },
+		_logger{ logger }
 	{
 		copyConfig(config);
-		_logger = logger;
 	}
 
 
@@ -67,13 +69,6 @@ namespace MDServerNetLib
 		return NET_ERROR_CODE::NONE;
 	}
 
-	NET_ERROR_CODE IOCPNetwork::SetPacketQueue(PacketQueueConccurency * recvQue, PacketQueueConccurency * sendQue)
-	{
-		_recvQueue = recvQue;
-		_sendQueue = sendQue;
-		return NET_ERROR_CODE::NONE;
-	}
-
 	PacketRaw IOCPNetwork::GetReceivedPacketTemp()
 	{
 		PacketRaw pkt;
@@ -103,8 +98,13 @@ namespace MDServerNetLib
 
 	bool IOCPNetwork::copyConfig(const ServerProperty * prop)
 	{
-		_property.ExtraClientCount = prop->ExtraClientCount;
+		_property.PortNum = prop->PortNum;
+		_property.BackLog = prop->BackLog;
 		_property.MaxClientCount = prop->MaxClientCount;
+		_property.ExtraClientCount = prop->ExtraClientCount;
+		_property.MaxClientRecvBufferSize = prop->MaxClientRecvBufferSize;
+		_property.MaxClientSendBufferSize = prop->MaxClientSendBufferSize;
+		_property.MAX_PACKET_BODY_SIZE = prop->MAX_PACKET_BODY_SIZE;
 
 		return true;
 	}
@@ -182,7 +182,7 @@ namespace MDServerNetLib
 		for (int i = 0; i < _createdThreadNum; ++i)
 		{
 			std::thread th = std::thread([this]() {workerThreadFunc(this->_cpHandle); });
-			//TODO:생성 실패시 익셉션 발생 익셉션 처리 코드 필요.
+			//TODO:생성 실패시 익셉션 발생 익셉션 발생시 종료시킨다..
 			_threads.push_back(std::move(th));
 		}
 
@@ -212,7 +212,7 @@ namespace MDServerNetLib
 
 		serverAddr.sin_family = AF_INET;
 		serverAddr.sin_addr.s_addr = htonl(INADDR_ANY);
-		serverAddr.sin_port = htons(_property.Port);
+		serverAddr.sin_port = htons(_property.PortNum);
 
 		auto retVal = bind(_acceptSocket, (SOCKADDR*)&serverAddr, sizeof(serverAddr));
 
@@ -339,19 +339,24 @@ namespace MDServerNetLib
 		{
 			if (WSAGetLastError() == WAIT_TIMEOUT && context == nullptr) {
 				_logger->Write(MDUtillity::LogType::ERR, "%s | WAIT_TIMEOUT ", __FUNCTION__);
-				return;
 			}
 			else if (WSAGetLastError() == ERROR_NETNAME_DELETED)
 			{
 				_logger->Write(MDUtillity::LogType::ERR, "%s | ERROR_NETNAME_DELETED ", __FUNCTION__);
 				_sessionPool->SessionFree(sessionAddr);
-				return;
+				;
 			}
 			else
 			{
 				_logger->Write(MDUtillity::LogType::ERR, "%s | ERROR_GCQS ", __FUNCTION__);
-				return;
 			}
+
+			if (ioContext != nullptr)
+			{
+				delete ioContext;
+			}
+
+			return;
 		}
 
 		if (dataSize == 0)
@@ -359,6 +364,11 @@ namespace MDServerNetLib
 			_logger->Write(MDUtillity::LogType::ERR, "%s |  client cut the session ", __FUNCTION__);
 			//세션을 초기화 하고 소켓을 닫는다.
 			_sessionPool->SessionFree(sessionAddr);
+
+			if (ioContext != nullptr)
+			{
+				delete ioContext;
+			}
 
 			return;
 		}
@@ -371,6 +381,8 @@ namespace MDServerNetLib
 		{
 			//패킷을 처리해준다.
 			receiveProcess(sessionAddr, dataSize);
+
+
 		}
 #pragma endregion
 
@@ -379,6 +391,8 @@ namespace MDServerNetLib
 		{
 			//센드 버퍼를 처리해 준다.
 			sessionAddr->CompleteSend(dataSize);
+
+
 		}
 
 #pragma endregion
@@ -391,7 +405,7 @@ namespace MDServerNetLib
 		}
 
 #pragma endregion
-
+		sessionAddr->ReleaseRef();
 		delete ioContext;
 
 	}
@@ -459,7 +473,7 @@ namespace MDServerNetLib
 					return (int)NET_ERROR_CODE::RECV_CLIENT_MAX_PACKET;
 				}
 			}
-
+			//TODO:바디 사이즈는 스트링 파일 +1
 			auto str = new char[pktHeader->_bodySize];
 
 			memcpy_s(str, pktHeader->_bodySize, &bufferStart[readPos], pktHeader->_bodySize);
@@ -470,7 +484,6 @@ namespace MDServerNetLib
 
 			readPos += pktHeader->_bodySize;
 		}
-
 		//TODO:근데 원형버퍼가 오작동을 일으킬수 도 있을것같다. 네트워크 상황이 않좋거나,오래 시간이 지나면.
 		//원형버퍼좀 손봐야 할듯 일단 먼저 돌아가도록 만드는게 필요할듯. 아니면 1번 부분과 2번 부분을 합쳐주는과정을
 		//한번씩 반복해 주거나. 근데 패킷이 크지 않고 네트워크 상황이 좋을것 같으니 일단 사용하는걸로.

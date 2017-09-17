@@ -25,7 +25,6 @@ namespace MDServerNetLib
 	class ServerProperty;
 	class SessionPool;
 	class Session;
-	using PacketQueueConccurency = concurrency::concurrent_queue<PacketRaw>;
 }
 
 namespace MDServerNetLib
@@ -34,12 +33,14 @@ namespace MDServerNetLib
 	class IOCPNetwork
 	{
 	public:
+
 		IOCPNetwork(const ServerProperty*  config, 
-			MDUtillity::LoggerBase* logger);
+			MDUtillity::LoggerBase* logger,
+			PacketQueueConccurency* recvQue, PacketQueueConccurency* sendQue);
+
 		~IOCPNetwork();
 
 		NET_ERROR_CODE init();
-		NET_ERROR_CODE SetPacketQueue(PacketQueueConccurency* recvQue, PacketQueueConccurency* sendQue);
 
 		PacketRaw GetReceivedPacketTemp();
 

@@ -1,8 +1,10 @@
 #pragma once
 #include <memory>
 #include <string>
+#include <concurrent_queue.h>
 #include "../../Common/Packet.h"
 #include "ServerProperty.h"
+
 namespace MDServerNetLib
 {
 #pragma pack(push, 1)
@@ -13,6 +15,7 @@ namespace MDServerNetLib
 		int _bodySize;
 	};
 
+#pragma pack(pop)
 	constexpr short PacketHeaderSize = sizeof(PacketHeader);
 
 	constexpr int MAX_PACKET_BODY_SIZE = 1024;
@@ -41,5 +44,6 @@ namespace MDServerNetLib
 		std::string  _body;
 	};
 
-#pragma pack(pop)
+
+	using PacketQueueConccurency = concurrency::concurrent_queue<PacketRaw>;
 }

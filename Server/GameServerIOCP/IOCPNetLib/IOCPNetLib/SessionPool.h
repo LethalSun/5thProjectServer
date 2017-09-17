@@ -2,6 +2,7 @@
 #include <WinSock2.h>
 #include <concurrent_vector.h>
 #include <concurrent_queue.h>
+#include <vector>
 #include <array>
 #include <atomic>
 namespace MDServerNetLib
@@ -22,6 +23,10 @@ namespace MDServerNetLib
 
 		//free session :return to pool
 		bool SessionFree(Session* Session);
+
+
+	private:
+		bool sessionFree(Session* Session);
 	private:
 
 		const int _maxObjectNum;
@@ -29,7 +34,7 @@ namespace MDServerNetLib
 		std::atomic<int> _allocatedObjectCount{ 0 };
 
 		//±×³É º¤ÅÍ »ç¿ëÇØµµ µÊ.
-		concurrency::concurrent_vector<Session*> _sessionPool;
+		std::vector<Session*> _sessionPool;
 
 		concurrency::concurrent_queue<int> _freeindex;
 	};

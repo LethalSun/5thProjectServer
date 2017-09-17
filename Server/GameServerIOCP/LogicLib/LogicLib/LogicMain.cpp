@@ -2,11 +2,20 @@
 #include "LogicMain.h"
 
 
-LogicMain::LogicMain()
+namespace LogicLib
 {
-}
+	LogicMain::LogicMain(const MDServerNetLib::ServerProperty*  prop,
+		MDUtillity::LoggerBase* logger,
+		MDServerNetLib::PacketQueueConccurency* recvQue,
+		MDServerNetLib::PacketQueueConccurency* sendQue)
+		:_packetProcessor(prop, logger, recvQue, sendQue)
+	{
+	}
 
 
-LogicMain::~LogicMain()
-{
+	LogicMain::~LogicMain()
+	{
+	}
+
 }
+

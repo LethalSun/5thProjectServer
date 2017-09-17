@@ -1,12 +1,15 @@
 #include "pch.h"
 #include "PacketProcessor.h"
 
-
-PacketProcessor::PacketProcessor()
+namespace LogicLib
 {
-}
+	PacketProcessor::PacketProcessor()
+	{
+	}
 
 
-PacketProcessor::~PacketProcessor()
-{
+	PacketProcessor::~PacketProcessor()
+	{
+	}
+
 }

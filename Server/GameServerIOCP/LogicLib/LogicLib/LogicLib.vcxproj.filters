@@ -13,6 +13,7 @@
     <ClInclude Include="Tile.h" />
     <ClInclude Include="PacketProcessor.h" />
     <ClInclude Include="LogicMain.h" />
+    <ClInclude Include="ObjectPool.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />

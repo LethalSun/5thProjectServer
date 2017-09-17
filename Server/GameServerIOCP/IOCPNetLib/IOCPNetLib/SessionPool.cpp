@@ -5,6 +5,7 @@ namespace MDServerNetLib
 	SessionPool::SessionPool(int maxSessionNum, int recvBufLen, int sendBufLen)
 		:_maxObjectNum{ maxSessionNum }
 	{
+		_sessionPool.reserve(_maxObjectNum);
 		for (int i = 0; i < maxSessionNum; ++i)
 		{
 			auto newSession = new Session(i, recvBufLen, sendBufLen);
@@ -29,7 +30,11 @@ namespace MDServerNetLib
 	{
 		for (int i = 0; i < _maxObjectNum; ++i)
 		{
-			//TODO:우선 세션이 사용가능한지 확인.
+			if (_sessionPool[i]->IsConnected() == false)
+			{
+				return nullptr;
+			}
+
 			if (_sessionPool[i]->_clntSocket == socket)
 			{
 				return _sessionPool[i];
@@ -38,11 +43,16 @@ namespace MDServerNetLib
 		return nullptr;
 	}
 
+	//TODO: 필요한 일이 있을까?이거 좀 이상한데?
 	Session * SessionPool::GetSessionByIndex(int index)
 	{
 		for (int i = 0; i < _maxObjectNum; ++i)
 		{
-			//TODO:우선 세션이 사용가능한지 확인.
+			if (_sessionPool[i]->IsConnected() == false)
+			{
+				return nullptr;
+			}
+
 			if (_sessionPool[i]->index == index)
 			{
 				return _sessionPool[i];
@@ -63,8 +73,7 @@ namespace MDServerNetLib
 			}
 			else
 			{
-				//뭔가 이상한 상황 비어있지 않은데 팝이 안되는 상황.
-				//아마 없을것같다.
+				//뭔가 이상한 상황 비어있지 않은데 팝이 안되는 상황.아마 없을것같다.
 				return nullptr;
 			}			
 		}
@@ -73,14 +82,27 @@ namespace MDServerNetLib
 		return _sessionPool[sessionIndex];
 	}
 
-	bool SessionPool::SessionFree(Session * Session)
+	bool SessionPool::SessionFree(Session * session)
 	{
-		//TODO:세션풀에서 세션 초기화 
-		//사용 불가능으로 만들고
-		//초기화를 하고
-		//프리 인덱스에 넣고
-		//사용가능으로 바꾼다.
-		//아마 세션에서 값을 확인할때 사용가능한 상태인지 계속 확인 해야 할듯.
+		//TODO: 리시브가 종료 되거나 센드가 종료 될때마다 레프 카운드는 감소 되야하고
+		//TODO: 리시브나 센드 예약을 걸때마다 레프 카운드를 증가 시켜야 한다.
+		session->SetConnected(false);
+
+		if (session->GetRefCount() <= 0)
+		{
+			sessionFree(session);
+		}
+		else
+		{
+			return false;
+		}
+		return true;
+	}
+
+	bool SessionPool::sessionFree(Session * Session)
+	{
+		Session->Reset();
+		_freeindex.push(Session->index);
 		return false;
 	}
 

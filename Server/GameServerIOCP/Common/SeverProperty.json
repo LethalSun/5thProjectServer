@@ -1,0 +1,9 @@
+{
+	"portNum" : 23452,
+	"backlog" : 32,
+	"maxClientCount" : 2000,
+	"extraClientCount" : 64,
+	"maxClientRecvSize" : 8192,
+	"maxClientSendSize" : 8192,
+  "MAX_PACKET_BODY_SIZE" : 1024
+}

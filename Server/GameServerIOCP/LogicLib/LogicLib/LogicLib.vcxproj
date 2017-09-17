@@ -103,7 +103,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <SDLCheck>true</SDLCheck>
+      <SDLCheck>false</SDLCheck>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
@@ -150,6 +150,7 @@
   <ItemGroup>
     <ClInclude Include="LogicMain.h" />
     <ClInclude Include="Match.h" />
+    <ClInclude Include="ObjectPool.h" />
     <ClInclude Include="PacketProcessor.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Player.h" />

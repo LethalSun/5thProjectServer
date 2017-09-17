@@ -156,9 +156,9 @@
     <ClInclude Include="HttpNetwork.h" />
     <ClInclude Include="IOCPNetwork.h" />
     <ClInclude Include="Logger.h" />
-    <ClInclude Include="MyJsonReader.h" />
     <ClInclude Include="PacketRaw.h" />
     <ClInclude Include="ServerProperty.h" />
+    <ClInclude Include="ServerPropertyReder.h" />
     <ClInclude Include="Session.h" />
     <ClInclude Include="SessionPool.h" />
     <ClInclude Include="SpinLockGuard.h" />

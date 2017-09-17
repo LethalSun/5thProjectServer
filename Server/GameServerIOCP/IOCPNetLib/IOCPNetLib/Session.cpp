@@ -81,6 +81,8 @@ namespace MDServerNetLib
 		DWORD sendBytes = 0;
 		DWORD flag = 0;
 
+		AddRef();
+
 		if (SOCKET_ERROR == WSASend(_clntSocket,&(sendContext->wsaBuf),
 			1,&sendBytes,flag,(LPWSAOVERLAPPED)sendContext,NULL))
 		{
@@ -122,6 +124,8 @@ namespace MDServerNetLib
 		DWORD recvbytes = 0;
 		DWORD flags = 0;
 		//리시브 예약,
+
+		AddRef();
 		if (SOCKET_ERROR == WSARecv(_clntSocket, &(recvContext->wsaBuf),
 			1, &recvbytes, &flags, (LPWSAOVERLAPPED)recvContext, NULL))
 		{
@@ -162,6 +166,11 @@ namespace MDServerNetLib
 		_refCount.fetch_sub(1);
 	}
 
+	int Session::GetRefCount()
+	{
+		return _refCount.load();
+	}
+
 	bool Session::Reset()
 	{
 		return release();
@@ -173,6 +182,9 @@ namespace MDServerNetLib
 		{
 			return false;
 		}
+
+		_clntSocket = INVALID_SOCKET;
+		_refCount.store(0);
 		_sendBuffer.Reset();
 		_recvBuffer.Reset();
 		SetConnected(false);

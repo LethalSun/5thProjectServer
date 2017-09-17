@@ -45,6 +45,7 @@ namespace MDServerNetLib
 
 		void AddRef();
 		void ReleaseRef();
+		int GetRefCount();
 
 		bool Reset();
 		
