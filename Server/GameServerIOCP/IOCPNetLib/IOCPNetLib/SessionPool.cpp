@@ -6,6 +6,7 @@ namespace MDServerNetLib
 		:_maxObjectNum{ maxSessionNum }
 	{
 		_sessionPool.reserve(_maxObjectNum);
+
 		for (int i = 0; i < maxSessionNum; ++i)
 		{
 			auto newSession = new Session(i, recvBufLen, sendBufLen);

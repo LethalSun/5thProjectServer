@@ -33,7 +33,6 @@ namespace MDServerNetLib
 
 		std::atomic<int> _allocatedObjectCount{ 0 };
 
-		//그냥 벡터 사용해도 됨.
 		std::vector<Session*> _sessionPool;
 
 		concurrency::concurrent_queue<int> _freeindex;
