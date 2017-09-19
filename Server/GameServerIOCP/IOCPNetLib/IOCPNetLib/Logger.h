@@ -18,7 +18,7 @@ namespace MDUtillity
 		TRACE = 1,
 		INFO = 2,
 		DEBUG = 3,
-		WARN = 4,
+		WARNING = 4,
 		ERR = 5,
 	};
 
@@ -40,23 +40,23 @@ namespace MDUtillity
 			switch (type)
 			{
 			case LogType::TRACE:
-				info(logText);
+				trace(logText);
 				break;
 
 			case LogType::INFO:
-				error(logText);
+				info(logText);
 				break;
 
 			case LogType::DEBUG:
-				warn(logText);
-				break;
-
-			case LogType::WARN:
 				debug(logText);
 				break;
 
+			case LogType::WARNING:
+				warning(logText);
+				break;
+
 			case LogType::ERR:
-				info(logText);
+				error(logText);
 				break;
 
 			default:
@@ -65,11 +65,13 @@ namespace MDUtillity
 		}
 
 	protected:
-		virtual void error(const char * pText) = 0;
-		virtual void warn(const char * pText) = 0;
-		virtual void debug(const char * pText) = 0;
 		virtual void trace(const char * pText) = 0;
 		virtual void info(const char * pText) = 0;
+		virtual void debug(const char * pText) = 0;
+		virtual void warning(const char * pText) = 0;
+		virtual void error(const char * pText) = 0;
+
+
 	};
 
 	class Logger :public LoggerBase
@@ -81,29 +83,29 @@ namespace MDUtillity
 	protected:
 		void error(const char * pText) override
 		{
-			BOOST_LOG_TRIVIAL(trace) << "[ERROR] " + *pText;
+			BOOST_LOG_TRIVIAL(error) << pText;
 		}
 
-		void warn(const char * pText) override
+		void warning(const char * pText) override
 		{
-			BOOST_LOG_TRIVIAL(trace) << "[WARN] " + *pText;
+			BOOST_LOG_TRIVIAL(warning) << pText;
 		}
 
 		void debug(const char * pText) override
 		{
 #ifdef _DEBUG
-			BOOST_LOG_TRIVIAL(trace) << "[DEBUG] " + *pText;
+			BOOST_LOG_TRIVIAL(debug) << pText;
 #endif
-		}
-
-		void trace(const char * pText) override
-		{
-			BOOST_LOG_TRIVIAL(trace) << "[TRACE] " + *pText;
 		}
 
 		void info(const char * pText) override
 		{
-			BOOST_LOG_TRIVIAL(trace) << "[INFO] " + *pText;
+			BOOST_LOG_TRIVIAL(info) << pText;
+		}
+
+		void trace(const char * pText) override
+		{
+			BOOST_LOG_TRIVIAL(trace) << pText;
 		}
 
 	};

@@ -3,7 +3,10 @@
 
 namespace LogicLib
 {
-	PacketProcessor::PacketProcessor()
+	PacketProcessor::PacketProcessor(const MDServerNetLib::ServerProperty*  prop,
+		MDUtillity::LoggerBase* logger,
+		MDServerNetLib::PacketQueueConccurency* recvQue,
+		MDServerNetLib::PacketQueueConccurency* sendQue)
 	{
 	}
 

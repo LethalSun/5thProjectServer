@@ -28,17 +28,24 @@ namespace MDServerNetLib
 		if (WSAStartup(MAKEWORD(2, 2), &wsaData) != 0)
 		{
 			return NET_ERROR_CODE::SERVER_SOCKET_STARTUP_FAIL;
+			
 		}
+		_logger->Write(MDUtillity::LogType::INFO, "%s | WSAStartup Success", __FUNCTION__);
 
 		if (makeAcceptSocket() == false)
 		{
 			return NET_ERROR_CODE::SERVER_SOCKET_CREATE_FAIL;
 		}
+		_logger->Write(MDUtillity::LogType::INFO, "%s | makeAcceptSocket Success", __FUNCTION__);
+
 
 		if (makeCP() == false)
 		{
 			return NET_ERROR_CODE::SERVER_CP_CREATE_FAIL;
 		}
+
+		_logger->Write(MDUtillity::LogType::INFO, "%s | makeCP Success", __FUNCTION__);
+
 
 		//여기서 작업자 스레드가 이미 시작 되어서 GQCS에서 기다리고 있다.
 		if (makeThreadPool() == false)
@@ -46,23 +53,35 @@ namespace MDServerNetLib
 			return NET_ERROR_CODE::WORK_THREAD_CREATE_FAIL;
 		}
 
+		_logger->Write(MDUtillity::LogType::INFO, "%s | makeThreadPool Success", __FUNCTION__);
+
+
 		if (makeSessionPool() == false)
 		{
 			return NET_ERROR_CODE::SESSION_POOL_CREATE_FAIL;
 		}
+		_logger->Write(MDUtillity::LogType::INFO, "%s | makeSessionPool Success", __FUNCTION__);
 
 		if (bindAndListen() == false)
 		{
 			return NET_ERROR_CODE::SERVER_SOCKET_BIND_AND_LISTEN_FAIL;
 		}
+		_logger->Write(MDUtillity::LogType::INFO, "%s | bindAndListen start", __FUNCTION__);
+
 
 		//클라이언트 ACCEPT스레드 실행
 		_acceptThread = std::thread([this]() {
+			_logger->Write(MDUtillity::LogType::INFO, "%s | Accept start", __FUNCTION__);
+
 			acceptThreadFunc();
 		});
 
+		
+
 		//서버에서 보내는 패킷을 예약하는 스레드
 		_sendThread = std::thread([this]() {
+			_logger->Write(MDUtillity::LogType::INFO, "%s | Send Thread start", __FUNCTION__);
+
 			sendThreadFunc();
 		});
 		//TODO:생성 실패시 익셉션 발생 익셉션 처리 코드 필요.
@@ -424,6 +443,8 @@ namespace MDServerNetLib
 		for (int i = 0; i < ClientSessionPoolSize(); ++i)
 		{
 			auto session = _sessionPool.get()->GetSessionByIndex(i);
+
+			if (session == nullptr)continue;
 
 			if (session->IsConnected() != true)
 			{
