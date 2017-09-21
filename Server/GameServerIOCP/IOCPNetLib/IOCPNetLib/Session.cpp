@@ -106,7 +106,7 @@ namespace MDServerNetLib
 
 		//리시브는 예약은 처음한번은 억셉트,그 뒤는 워커스레드가 하고 그 다음에  
 
-		if (_recvBuffer.CheckAvailableSpaceSize())
+		if (_recvBuffer.CheckAvailableSpaceSize() == 0)
 		{
 			return false;
 		}
