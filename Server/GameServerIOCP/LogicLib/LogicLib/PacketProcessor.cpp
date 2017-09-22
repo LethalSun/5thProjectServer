@@ -7,7 +7,10 @@ namespace LogicLib
 		MDUtillity::LoggerBase* logger,
 		MDServerNetLib::PacketQueueConccurency* recvQue,
 		MDServerNetLib::PacketQueueConccurency* sendQue)
+		:_recvQue{ recvQue }, _sendQue{ sendQue }, _playerPool{ prop->MaxClientCount},
+		_matchPool{ prop->MaxClientCount /2 }
 	{
+
 	}
 
 

@@ -15,6 +15,29 @@ namespace LogicLib
 
 	LogicMain::~LogicMain()
 	{
+		_logicThread.join();
+	}
+
+	void LogicMain::StartLogicThreadFunc()
+	{
+		_logicThread = std::thread([&]() 
+		{
+			logicThreadFunc();
+		});
+	}
+
+	void LogicMain::logicThreadFunc()
+	{
+		while (true)
+		{
+			MDServerNetLib::PacketRaw pkt;
+			
+			if (_recvQue->try_pop(pkt))
+			{
+
+			}
+
+		}
 	}
 
 }

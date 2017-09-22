@@ -35,13 +35,12 @@ namespace MDUtillity
 		{
 			for (int i = 0; i < _maxObjectNum; ++i)
 			{
-				if (_pool[i]->IsUsed() == false)
-				{
-					return nullptr;
-				}
-
 				if (_pool[i]->_uID == socket)
 				{
+					if (_pool[i]->IsUsed() == false)
+					{
+						return nullptr;
+					}
 					return _pool[i];
 				}
 			}
@@ -50,16 +49,31 @@ namespace MDUtillity
 
 		T* AllocObject()
 		{
+			if (_freeIndex.size() == 0)
+			{
+				return nullptr;
+			}
 
+			auto index = _freeIndex.front();
+
+			return _pool[index];
+			
 		}
 
-		bool FreeObject();
+		bool FreeObject(int index)
+		{
+			_freeIndex.push_back(index);
+		}
 
-		void Release();
-
-	private:
-		void init();
-
+		void Release()
+		{
+			for (int i = 0; i < _maxObjectNum; ++i)
+			{
+				auto pool = _pool[i];
+				_pool[i] = nullptr;
+				delete pool;
+			}
+		}
 	private:
 
 		const int _maxObjectNum;
