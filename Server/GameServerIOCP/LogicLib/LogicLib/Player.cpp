@@ -1,12 +1,10 @@
 #include "pch.h"
 #include "Player.h"
 
-
-Player::Player()
+namespace LogicLib
 {
-}
+	Player::~Player()
+	{
+	}
 
-
-Player::~Player()
-{
 }

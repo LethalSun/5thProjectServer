@@ -28,8 +28,7 @@ namespace LogicLib
 
 		std::thread _logicThread;
 
-		//MDServerNetLib::PacketQueueConccurency* _recvQue;
-		//MDServerNetLib::PacketQueueConccurency* _sendQue;
+		MDServerNetLib::PacketQueueConccurency* _recvQue;
 	};
 
 }

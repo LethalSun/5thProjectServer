@@ -34,7 +34,7 @@ namespace MDServerNetLib
 		}
 
 		auto dest = _sendBuffer.GetWritablePosition();
-		auto header = PacketHeader{ pkt._packetId,pkt._bodySize };
+		auto header = PacketHeader{ pkt._packetId, pkt._bodySize };
 
 		//TODO: 함수로 빼보자.
 		memcpy_s(dest, _sendBuffer.CheckAvailableSpaceSize(), &header, PacketHeaderSize);

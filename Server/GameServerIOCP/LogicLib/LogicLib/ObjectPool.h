@@ -29,23 +29,6 @@ namespace MDUtillity
 		{
 			return _pool[index];
 		}
-	
-
-		T* GetObjectByUID(int UID)
-		{
-			for (int i = 0; i < _maxObjectNum; ++i)
-			{
-				if (_pool[i]->_uID == socket)
-				{
-					if (_pool[i]->IsUsed() == false)
-					{
-						return nullptr;
-					}
-					return _pool[i];
-				}
-			}
-			return nullptr;
-		}
 
 		T* AllocObject()
 		{
@@ -59,6 +42,8 @@ namespace MDUtillity
 			return _pool[index];
 			
 		}
+
+		int GetMaxObjectNum() { return _maxObjectNum; }
 
 		bool FreeObject(int index)
 		{

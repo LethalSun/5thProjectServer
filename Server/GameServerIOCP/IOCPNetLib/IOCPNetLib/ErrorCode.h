@@ -34,19 +34,4 @@ namespace MDServerNetLib
 		WORK_THREAD_CREATE_FAIL = 41,
 		SESSION_POOL_CREATE_FAIL = 42,
 	};
-
-	//TODO: 사용안하면 지우기.
-	//const int MAX_NET_ERROR_STRING_COUNT = 64;
-	//
-	//struct NetError
-	//{
-	//	NetError(NET_ERROR_CODE code)
-	//	{
-	//		Error = code;
-	//	}
-	//
-	//	NET_ERROR_CODE Error = NET_ERROR_CODE::NONE;
-	//	wchar_t Msg[MAX_NET_ERROR_STRING_COUNT] = { 0, };
-	//	int Value = 0;
-	//};
 }

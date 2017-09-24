@@ -25,6 +25,7 @@ namespace MDUtillity
 		void Commit(size_t length);
 
 		char* GetbufferStartposition()const;
+
 	private:
 		void allocateSecondaryRegion();
 

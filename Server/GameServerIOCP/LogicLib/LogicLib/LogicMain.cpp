@@ -8,7 +8,7 @@ namespace LogicLib
 		MDUtillity::LoggerBase* logger,
 		MDServerNetLib::PacketQueueConccurency* recvQue,
 		MDServerNetLib::PacketQueueConccurency* sendQue)
-		:_packetProcessor(prop, logger, recvQue, sendQue)
+		:_packetProcessor(prop, logger, sendQue)
 	{
 	}
 
@@ -34,7 +34,7 @@ namespace LogicLib
 			
 			if (_recvQue->try_pop(pkt))
 			{
-
+				_packetProcessor.ProcessPacket(pkt);
 			}
 
 		}
