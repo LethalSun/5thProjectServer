@@ -306,11 +306,15 @@ namespace MDServerNetLib
 				continue;
 			}
 			
+			_logger->Write(MDUtillity::LogType::DEBUG, "%s | New Client Accepted. SessionID %d ", __FUNCTION__, session->index);
+
 			if (session->PostRecv())
 			{
 				_logger->Write(MDUtillity::LogType::INFO, "%s | WSARecv Faild", __FUNCTION__);
 			}
-			
+			_logger->Write(MDUtillity::LogType::DEBUG, "%s | Session %d Start Recive", __FUNCTION__, session->index);
+
+
 		}
 		return true;
 	}
@@ -525,6 +529,7 @@ namespace MDServerNetLib
 
 		_recvQueue->push(pkt);
 
+		_logger->Write(MDUtillity::LogType::DEBUG, "%s | Packet Recive, Session(%d), Packet ID(%hd),size(%hd)", __FUNCTION__, sessionIndex, pktId, bodysize);
 	}
 
 
