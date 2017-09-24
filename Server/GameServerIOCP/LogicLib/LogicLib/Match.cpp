@@ -35,8 +35,8 @@ namespace LogicLib
 	{
 		auto curTime = std::chrono::system_clock::now();
 		auto duration = curTime.time_since_epoch();
-		auto milliSec = std::chrono::duration_cast<std::chrono::milliseconds>(duration);
-		std::mt19937_64 mtRand(milliSec);
+		auto milliSec = std::chrono::duration_cast<std::chrono::milliseconds>(duration).count();
+		std::mt19937 mtRand(milliSec);
 
 		return mtRand();
 	}

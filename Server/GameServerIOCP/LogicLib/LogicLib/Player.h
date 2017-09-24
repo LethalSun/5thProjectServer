@@ -47,21 +47,19 @@ namespace LogicLib
 			_loseNum = 0; 
 			_isTurn = false;
 			_id.clear();
+			return true;
 		}
 
 		bool SetSessionIdx(int sessionIdx)
 		{
 			_sessionIdx = sessionIdx;
-		}
-
-		int GetSessionIdx()
-		{
-			return _sessionIdx;
+			return true;
 		}
 
 		bool SetState(int state)
 		{
 			_state = (PlayerState)state;
+			return true;
 		}
 
 		bool SetDeployInfo(std::string deployInfo)
@@ -83,6 +81,7 @@ namespace LogicLib
 
 				++i;
 			}
+			return true;
 		}
 
 		bool SetMatchInfo(Match* match)
@@ -104,17 +103,20 @@ namespace LogicLib
 			_rating = rating;
 			_winNum = win;
 			_loseNum = lose;
+			return true;
 		}
 
 		bool SetTurn(bool turn)
 		{
 			_isTurn = turn;
+			return true;
 		}
 
 		bool SetID(std::string id)
 		{
 			_id.clear();
 			_id = id;
+			return true;
 		}
 
 	private:

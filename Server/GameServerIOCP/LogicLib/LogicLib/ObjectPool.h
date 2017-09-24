@@ -14,11 +14,11 @@ namespace MDUtillity
 		{
 			_pool.reserve(_maxObjectNum);
 
-			for (int i = 0; i < maxSessionNum; ++i)
+			for (int i = 0; i < _maxObjectNum; ++i)
 			{
 				auto newObject = new T();
-				_pool.push_back();
-				_freeindex.push_back(i);
+				_pool.push_back(newObject);
+				_freeIndex.push_back(i);
 
 			}
 		}
@@ -27,7 +27,7 @@ namespace MDUtillity
 
 		T& operator[](const int index)
 		{
-			return _pool[index];
+			return *_pool[index];
 		}
 
 		T* AllocObject()
