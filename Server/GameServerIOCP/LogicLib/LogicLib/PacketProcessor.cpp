@@ -107,6 +107,7 @@ namespace LogicLib
 		SendResPacket(newPlayer->GetSessionIdx(),
 			Packet::PacketId::ID_GAMESEVER_RES_GAMESERVER_ENTER,
 			&resPacket);
+		
 
 		return true;
 	}
@@ -145,7 +146,7 @@ namespace LogicLib
 		MDServerNetLib::PacketRaw resPacket(sessionIdx, packetID, bodySize, body.c_str());
 
 		_sendQue->push(resPacket);
-
+		_logger->Write(MDUtillity::LogType::DEBUG, "%s | Packet SEND, Session(%d), Packet ID(%hd),size(%hd)", __FUNCTION__, sessionIdx, packetID, bodySize);
 		return true;
 	}
 
