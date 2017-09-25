@@ -25,6 +25,10 @@ int main()
 
 	iocpManger.init();
 
+	LogicLib::LogicMain logicMain(propertyReader.GetProperty(), &logger, &recvQueue, &sendQueue);
+
+	logicMain.StartLogicThreadFunc();
+
 	int endTrigger;
 
 	std::cin >> endTrigger;

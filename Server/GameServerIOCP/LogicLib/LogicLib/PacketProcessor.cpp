@@ -36,32 +36,32 @@ namespace LogicLib
 			}
 			case Packet::PacketId::ID_GAMESEVER_REQ_SHIP_DEPLOY_INFO:
 			{
-				onShipDeployInfoReq(pkt);
+				//onShipDeployInfoReq(pkt);
 				break;
 			}
 			case Packet::PacketId::ID_GAMESEVER_REQ_GAMESERVER_INFO:
 			{
-				onGameServerInfoReq(pkt);
+				//onGameServerInfoReq(pkt);
 				break;
 			}
 			case Packet::PacketId::ID_GAMESEVER_REQ_GAME_READY:
 			{
-				onGameReadyReq(pkt);
+				//onGameReadyReq(pkt);
 				break;
 			}
 			case Packet::PacketId::ID_GAMESEVER_REQ_BOMB:
 			{
-				onBombReq(pkt);
+				//onBombReq(pkt);
 				break;
 			}
 			case Packet::PacketId::ID_GAMSERVER_REQ_USER_HEARTBEAT:
 			{
-				onUserHeartBeatReq(pkt);
+				//onUserHeartBeatReq(pkt);
 				break;
 			}
 			case Packet::PacketId::ID_GAMSERVER_REQ_USER_LOGOUT:
 			{
-				onUserLogoutReq(pkt);
+				//onUserLogoutReq(pkt);
 				break;
 			}
 		}

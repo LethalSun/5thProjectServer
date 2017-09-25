@@ -106,6 +106,7 @@
       <SDLCheck>false</SDLCheck>
       <PrecompiledHeaderFile>
       </PrecompiledHeaderFile>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -140,6 +141,7 @@
       <PreprocessorDefinitions>NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -149,6 +151,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\ThirdPartylib\nlohmann_Json\json.hpp" />
     <ClInclude Include="..\..\Common\Packet.h" />
     <ClInclude Include="CircularBuffer.h" />
     <ClInclude Include="ErrorCode.h" />

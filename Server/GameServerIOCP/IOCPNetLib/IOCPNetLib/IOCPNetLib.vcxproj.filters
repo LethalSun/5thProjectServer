@@ -41,6 +41,9 @@
     </ClInclude>
     <ClInclude Include="ServerProperty.h" />
     <ClInclude Include="ServerPropertyReder.h" />
+    <ClInclude Include="..\..\..\ThirdPartylib\nlohmann_Json\json.hpp">
+      <Filter>Utillity</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="happyhttp.cpp">

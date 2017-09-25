@@ -28,12 +28,12 @@ namespace LogicLib
 
 	private:
 		bool onGameEnterReq(MDServerNetLib::PacketRaw pkt);
-		bool onShipDeployInfoReq(MDServerNetLib::PacketRaw pkt);
-		bool onGameServerInfoReq(MDServerNetLib::PacketRaw pkt);
-		bool onGameReadyReq(MDServerNetLib::PacketRaw pkt);
-		bool onBombReq(MDServerNetLib::PacketRaw pkt);
-		bool onUserHeartBeatReq(MDServerNetLib::PacketRaw pkt);
-		bool onUserLogoutReq(MDServerNetLib::PacketRaw pkt);
+		//bool onShipDeployInfoReq(MDServerNetLib::PacketRaw pkt);
+		//bool onGameServerInfoReq(MDServerNetLib::PacketRaw pkt);
+		//bool onGameReadyReq(MDServerNetLib::PacketRaw pkt);
+		//bool onBombReq(MDServerNetLib::PacketRaw pkt);
+		//bool onUserHeartBeatReq(MDServerNetLib::PacketRaw pkt);
+		//bool onUserLogoutReq(MDServerNetLib::PacketRaw pkt);
 
 		int findPlayer(int sessionIdx);
 
