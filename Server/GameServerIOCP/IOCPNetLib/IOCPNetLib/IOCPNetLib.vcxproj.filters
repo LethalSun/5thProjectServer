@@ -62,8 +62,5 @@
     <ClCompile Include="Logger.cpp">
       <Filter>Utillity</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\ThirdPartylib\json\jsoncpp.cpp">
-      <Filter>Utillity</Filter>
-    </ClCompile>
   </ItemGroup>
 </Project>

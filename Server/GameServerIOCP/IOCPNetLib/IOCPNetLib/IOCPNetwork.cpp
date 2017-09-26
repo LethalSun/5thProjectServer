@@ -308,7 +308,7 @@ namespace MDServerNetLib
 			
 			_logger->Write(MDUtillity::LogType::DEBUG, "%s | New Client Accepted. SessionID %d ", __FUNCTION__, session->index);
 
-			if (session->PostRecv())
+			if (!session->PostRecv())
 			{
 				_logger->Write(MDUtillity::LogType::INFO, "%s | WSARecv Faild", __FUNCTION__);
 			}

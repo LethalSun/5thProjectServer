@@ -98,7 +98,10 @@ namespace LogicLib
 
 		///정보를 저장하고 우선 ID만
 		newPlayer->SetID(packet.ID);
-
+		newPlayer->SetSessionIdx(pkt._sessionIdx);
+		newPlayer->SetState(static_cast<int>(PlayerState::USED));
+		//TODO:레이팅 승패를 db에서 받아와서 세팅해준다.그런데 원스레드인 로직에서 아이오를 하면 안되므로 iocp 워커 스레드에서 받고 로우패킷에 넣어서 보낸다.
+		newPlayer->SetInfo(1200,10,10);//temp Info
 		///패킷을 보낸다.
 		Packet::GAMESEVER_RES_GAMESERVER_ENTER resPacket;
 
@@ -116,6 +119,11 @@ namespace LogicLib
 	{
 		for (int i = 0; i < _playerPool.GetMaxObjectNum(); ++i)
 		{
+			if (_playerPool[i].IsUsed() != true)
+			{
+				continue;
+			}
+
 			if (_playerPool[i].GetSessionIdx() == sessionIdx)
 			{
 				return i;

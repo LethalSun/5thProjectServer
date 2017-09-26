@@ -167,7 +167,6 @@
     <ClInclude Include="SpinLockGuard.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\ThirdPartylib\json\jsoncpp.cpp" />
     <ClCompile Include="..\..\Common\Packet.cpp" />
     <ClCompile Include="CircularBuffer.cpp" />
     <ClCompile Include="happyhttp.cpp" />

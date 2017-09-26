@@ -13,7 +13,7 @@ namespace LogicLib
 
 	enum class Result
 	{
-		OK = 1,
+		OK = 0,
 	};
 
 	class PacketProcessor
