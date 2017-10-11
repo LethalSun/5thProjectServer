@@ -20,15 +20,19 @@ namespace LogicLib
 
 	private:
 
+		void logicThreadFunc();
+
 		PacketProcessor _packetProcessor;
 
 		MDServerNetLib::ServerProperty _property;
 
-		void logicThreadFunc();
+
 
 		std::thread _logicThread;
 
 		MDServerNetLib::PacketQueueConccurency* _recvQue;
+
+
 	};
 
 }

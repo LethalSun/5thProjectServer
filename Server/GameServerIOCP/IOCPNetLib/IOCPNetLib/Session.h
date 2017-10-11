@@ -5,7 +5,7 @@
 #include "CircularBuffer.h"
 #include "ServerProperty.h"
 #include "PacketRaw.h"
-
+#include "../../IOCPNetLib/IOCPNetLib/Logger.h"
 namespace MDServerNetLib
 {
 	enum class DisconnectReason
@@ -28,7 +28,7 @@ namespace MDServerNetLib
 	class Session
 	{
 	public:
-		Session(int indexForPool, int recvBufLen, int sendBufLen);
+		Session(MDUtillity::LoggerBase* logger,int indexForPool, int recvBufLen, int sendBufLen);
 		~Session();
 
 		bool IsConnected()const { return _isConnected.load(); }
@@ -63,14 +63,14 @@ namespace MDServerNetLib
 
 		MDUtillity::CircularBuffer _sendBuffer;
 		MDUtillity::CircularBuffer _recvBuffer;
-
+		std::atomic<bool> _isSendAvailable{ false };
 	private:
 		const int _maxRecvBufLen;
 		const int _maxSendBufLen;
-
+		MDUtillity::LoggerBase* _logger;
 		CRITICAL_SECTION _spinlockMutex;
 
-		std::atomic<bool> _isSendAvailable{ false };
+
 		std::atomic<bool> _isConnected{ false };
 		std::atomic<long> _refCount{ 0 };//비동기 입출력 을 할때마다 증가 시키고 완료 될때 마다 감소 시켜서 0일때만 세션을 풀로 돌려 보낸다.
 	};

@@ -213,7 +213,7 @@ namespace MDServerNetLib
 	bool IOCPNetwork::makeSessionPool()
 	{
 		_sessionPool = std::unique_ptr<SessionPool>(
-			new SessionPool(
+			new SessionPool(_logger,
 				_property.MaxClientCount + _property.ExtraClientCount,
 				_property.MaxClientRecvBufferSize,
 				_property.MaxClientSendBufferSize)
@@ -414,7 +414,17 @@ namespace MDServerNetLib
 		{
 			//센드 버퍼를 처리해 준다.
 			sessionAddr->CompleteSend(dataSize);
+			if (sessionAddr->_isSendAvailable.load() == true)
+			{
+				_logger->Write(MDUtillity::LogType::INFO, "%s | Session %d IS Sendable", __FUNCTION__, sessionAddr->index);
+			}
+			else
+			{
+				_logger->Write(MDUtillity::LogType::INFO, "%s | Session %d IS NOT Sendable", __FUNCTION__, sessionAddr->index);
+			}
 
+
+			_logger->Write(MDUtillity::LogType::DEBUG, "%s | Complete Send, Session(%d),size(%hd)", __FUNCTION__, sessionAddr->index, dataSize);
 
 		}
 
@@ -440,6 +450,8 @@ namespace MDServerNetLib
 		{
 			auto session = _sessionPool.get()->GetSessionByIndex(pkt._sessionIdx);
 			session->PostSendBuffer(pkt);
+			_logger->Write(MDUtillity::LogType::DEBUG, "%s | Packet SEND, Session(%d), Packet ID(%hd),size(%hd)", __FUNCTION__, pkt._sessionIdx, pkt._packetId, pkt._bodySize);
+
 		}
 
 		
@@ -456,6 +468,8 @@ namespace MDServerNetLib
 			}
 			//플러쉬 하는데 아직 센드가 완료되있지 않은 상황이면 그냥 나온다.
 			session->FlushSendBuffer();
+			
+
 		}
 		//TODO:한번 다처리하고 양보하기 원래 이렇게 하는게 아니라 로직에서 그냥 바로 센드예약을 거는게 가장 깔끔 할까?
 		//만약에 로직한바퀴 돌때마다 cp에 센드를 위한 워커스레드를 깨우는걸 PostQueuedCompletionStatus함수로 해주는건?
@@ -516,9 +530,14 @@ namespace MDServerNetLib
 		//큐에 넣은 만큼 버퍼를 지워준다.
 		if (readPos != 0)
 		{
-			sessionAddr->_recvBuffer.Remove(readPos);
+			sessionAddr->_recvBuffer.Remove(readPos+1);
 		}
 
+		if (!sessionAddr->PostRecv())
+		{
+			_logger->Write(MDUtillity::LogType::INFO, "%s | WSARecv Faild", __FUNCTION__);
+		}
+		_logger->Write(MDUtillity::LogType::DEBUG, "%s | Session %d Start Recive", __FUNCTION__, sessionAddr->index);
 		return 0;
 	}
 

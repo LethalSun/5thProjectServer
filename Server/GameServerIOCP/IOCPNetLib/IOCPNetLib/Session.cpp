@@ -4,8 +4,9 @@
 
 namespace MDServerNetLib
 {
-	Session::Session(int indexForPool, int recvBufLen, int sendBufLen)
-		:_sendBuffer{sendBufLen},
+	Session::Session(MDUtillity::LoggerBase* logger,int indexForPool, int recvBufLen, int sendBufLen)
+		:_logger{ logger },
+		_sendBuffer{sendBufLen},
 		_recvBuffer{ recvBufLen },
 		_maxRecvBufLen{ recvBufLen },
 		_maxSendBufLen{ sendBufLen },
@@ -27,10 +28,34 @@ namespace MDServerNetLib
 		}
 
 		MDUtillity::SpinLockGuard lockGuard(_spinlockMutex);
+
+		auto asize = _sendBuffer.CheckAvailableSpaceSize();
+		auto bsize = pkt._bodySize + PacketHeaderSize;
+		_logger->Write(MDUtillity::LogType::INFO, "%s | Session pool Full available = %d, size = %d", __FUNCTION__, asize, bsize);
 		
+		if (_isSendAvailable.load() == true)
+		{
+			_logger->Write(MDUtillity::LogType::INFO, "%s | IS Sendable", __FUNCTION__);
+		}
+		else
+		{
+			_logger->Write(MDUtillity::LogType::INFO, "%s | IS NOT Sendable", __FUNCTION__);
+		}
+
+
 		if (_sendBuffer.CheckAvailableSpaceSize() < pkt._bodySize + PacketHeaderSize)
 		{
 			return false;
+		}
+		_logger->Write(MDUtillity::LogType::INFO, "%s | Post Send", __FUNCTION__);
+
+		if (_isSendAvailable.load() == true)
+		{
+			_logger->Write(MDUtillity::LogType::INFO, "%s | IS Sendable", __FUNCTION__);
+		}
+		else
+		{
+			_logger->Write(MDUtillity::LogType::INFO, "%s | IS NOT Sendable", __FUNCTION__);
 		}
 
 		auto dest = _sendBuffer.GetWritablePosition();
@@ -41,6 +66,16 @@ namespace MDServerNetLib
 		memcpy_s(dest + PacketHeaderSize, _sendBuffer.CheckAvailableSpaceSize() - PacketHeaderSize, pkt._body.c_str(), pkt._bodySize);
 
 		_sendBuffer.Commit(pkt._bodySize + PacketHeaderSize);
+		_logger->Write(MDUtillity::LogType::INFO, "%s | Commit Send", __FUNCTION__);
+
+		if (_isSendAvailable.load() == true)
+		{
+			_logger->Write(MDUtillity::LogType::INFO, "%s | IS Sendable", __FUNCTION__);
+		}
+		else
+		{
+			_logger->Write(MDUtillity::LogType::INFO, "%s | IS NOT Sendable", __FUNCTION__);
+		}
 
 		return true;
 	}
@@ -49,8 +84,10 @@ namespace MDServerNetLib
 	{
 		if (!IsConnected())
 		{
+			_logger->Write(MDUtillity::LogType::INFO, "%s | now not connected", __FUNCTION__);
 			return false;
 		}
+
 
 		MDUtillity::SpinLockGuard lockGuard(_spinlockMutex);
 
@@ -67,7 +104,6 @@ namespace MDServerNetLib
 		{
 			return false;
 		}
-
 		auto sendContext = new IOContext();
 
 		ZeroMemory(&sendContext->overlapped, sizeof(WSAOVERLAPPED));
@@ -81,6 +117,8 @@ namespace MDServerNetLib
 		DWORD sendBytes = 0;
 		DWORD flag = 0;
 
+		_logger->Write(MDUtillity::LogType::INFO, "%s | Send Start send length %d", __FUNCTION__, sendContext->wsaBuf.len);
+
 		AddRef();
 
 		if (SOCKET_ERROR == WSASend(_clntSocket,&(sendContext->wsaBuf),
@@ -92,6 +130,8 @@ namespace MDServerNetLib
 			}
 		}
 		
+		_logger->Write(MDUtillity::LogType::INFO, "%s | Send reserved", __FUNCTION__);
+
 		SetSendable(false);
 
 		return true;
@@ -149,6 +189,16 @@ namespace MDServerNetLib
 		_sendBuffer.Remove(transferred);
 
 		SetSendable(true);
+
+		if (_isSendAvailable.load() == true)
+		{
+			_logger->Write(MDUtillity::LogType::INFO, "%s | Session %d IS Sendable", __FUNCTION__, index);
+		}
+		else
+		{
+			_logger->Write(MDUtillity::LogType::INFO, "%s | Session %d IS NOT Sendable", __FUNCTION__, index);
+		}
+
 	}
 
 	void Session::CompleteRecv(DWORD transferred)

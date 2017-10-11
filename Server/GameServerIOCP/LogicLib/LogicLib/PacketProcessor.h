@@ -13,7 +13,12 @@ namespace LogicLib
 
 	enum class Result
 	{
-		OK = 0,
+		Fail = -1,
+		OK,
+		TIMEOUT,
+		HIT,
+		WIN,
+		YOURTURN,
 	};
 
 	class PacketProcessor
@@ -26,14 +31,17 @@ namespace LogicLib
 
 		bool ProcessPacket(MDServerNetLib::PacketRaw pkt);
 
+
+		void MakeMatch();
+
 	private:
 		bool onGameEnterReq(MDServerNetLib::PacketRaw pkt);
-		//bool onShipDeployInfoReq(MDServerNetLib::PacketRaw pkt);
+		bool onShipDeployInfoReq(MDServerNetLib::PacketRaw pkt);
+		bool onGameReadyReq(MDServerNetLib::PacketRaw pkt);
+		bool onBombReq(MDServerNetLib::PacketRaw pkt);
+		bool onUserLogoutReq(MDServerNetLib::PacketRaw pkt);
 		//bool onGameServerInfoReq(MDServerNetLib::PacketRaw pkt);
-		//bool onGameReadyReq(MDServerNetLib::PacketRaw pkt);
-		//bool onBombReq(MDServerNetLib::PacketRaw pkt);
 		//bool onUserHeartBeatReq(MDServerNetLib::PacketRaw pkt);
-		//bool onUserLogoutReq(MDServerNetLib::PacketRaw pkt);
 
 		int findPlayer(int sessionIdx);
 
@@ -46,13 +54,9 @@ namespace LogicLib
 
 		PlayerManager _playerPool;
 
-		//TODO:플레이어는 타일정보를 갖는다 타일은 배가 있는지 없는지의 정보가 있다.
-		//플레이어는 매치정보(인덱스)를 갖는다. 패킷이 오면 세션으로부터 플레이어를 플레이어로부터 매치(인덱스)를 알아낸다.
+		std::deque<int> _readyPlayerIndices;
 
 		MatchManager _matchPool;
-		//TODO:매치는 플레이어 둘을 갖는다.
-		//공격중인 플레이어와 아닌 플레이어를 기록한다.
-		//턴이 바뀌면 공격중인 플레이어와 아닌플레이어를 바꾼다.
 
 		//TODO:플레이어는 일정시간동안 하트비트를 보내지 않으면 종료시킨다.
 

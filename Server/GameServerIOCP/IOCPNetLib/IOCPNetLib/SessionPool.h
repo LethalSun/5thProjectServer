@@ -5,6 +5,7 @@
 #include <vector>
 #include <array>
 #include <atomic>
+#include "../../IOCPNetLib/IOCPNetLib/Logger.h"
 namespace MDServerNetLib
 {
 	class Session;
@@ -12,7 +13,7 @@ namespace MDServerNetLib
 	class SessionPool
 	{
 	public:
-		SessionPool(int maxObjectNum, int recvBufLen, int sendBufLen);
+		SessionPool(MDUtillity::LoggerBase* logger,int maxObjectNum, int recvBufLen, int sendBufLen);
 		~SessionPool();
 
 		//get session by socket
@@ -30,7 +31,7 @@ namespace MDServerNetLib
 	private:
 
 		const int _maxObjectNum;
-
+		MDUtillity::LoggerBase* _logger;
 		std::atomic<int> _allocatedObjectCount{ 0 };
 
 		std::vector<Session*> _sessionPool;

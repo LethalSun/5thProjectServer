@@ -36,6 +36,7 @@ namespace LogicLib
 			{
 				_packetProcessor.ProcessPacket(pkt);
 			}
+			_packetProcessor.MakeMatch();
 
 		}
 	}

@@ -39,6 +39,7 @@ namespace MDUtillity
 
 			auto index = _freeIndex.front();
 
+			_freeIndex.pop_front();
 			return _pool[index];
 			
 		}
@@ -48,6 +49,7 @@ namespace MDUtillity
 		bool FreeObject(int index)
 		{
 			_freeIndex.push_back(index);
+			return true;
 		}
 
 		void Release()

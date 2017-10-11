@@ -2,14 +2,14 @@
 #include "Session.h"
 namespace MDServerNetLib
 {
-	SessionPool::SessionPool(int maxSessionNum, int recvBufLen, int sendBufLen)
+	SessionPool::SessionPool(MDUtillity::LoggerBase* logger,int maxSessionNum, int recvBufLen, int sendBufLen)
 		:_maxObjectNum{ maxSessionNum }
 	{
 		_sessionPool.reserve(_maxObjectNum);
 
 		for (int i = 0; i < maxSessionNum; ++i)
 		{
-			auto newSession = new Session(i, recvBufLen, sendBufLen);
+			auto newSession = new Session(logger,i, recvBufLen, sendBufLen);
 			_sessionPool.push_back(newSession);
 			_freeindex.push(i);
 
