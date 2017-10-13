@@ -31,32 +31,15 @@ namespace MDServerNetLib
 
 		auto asize = _sendBuffer.CheckAvailableSpaceSize();
 		auto bsize = pkt._bodySize + PacketHeaderSize;
-		_logger->Write(MDUtillity::LogType::INFO, "%s | Session pool Full available = %d, size = %d", __FUNCTION__, asize, bsize);
+		_logger->Write(MDUtillity::LogType::INFO, "%s | SessionFunc Session pool available = %d, size = %d,IsSendable(%d)", __FUNCTION__, asize, bsize, _isSendAvailable.load());
 		
-		if (_isSendAvailable.load() == true)
-		{
-			_logger->Write(MDUtillity::LogType::INFO, "%s | IS Sendable", __FUNCTION__);
-		}
-		else
-		{
-			_logger->Write(MDUtillity::LogType::INFO, "%s | IS NOT Sendable", __FUNCTION__);
-		}
-
 
 		if (_sendBuffer.CheckAvailableSpaceSize() < pkt._bodySize + PacketHeaderSize)
 		{
 			return false;
 		}
-		_logger->Write(MDUtillity::LogType::INFO, "%s | Post Send", __FUNCTION__);
+		_logger->Write(MDUtillity::LogType::INFO, "%s |SessionFunc Post Send ,IsSendable(%d)", __FUNCTION__, _isSendAvailable.load());
 
-		if (_isSendAvailable.load() == true)
-		{
-			_logger->Write(MDUtillity::LogType::INFO, "%s | IS Sendable", __FUNCTION__);
-		}
-		else
-		{
-			_logger->Write(MDUtillity::LogType::INFO, "%s | IS NOT Sendable", __FUNCTION__);
-		}
 
 		auto dest = _sendBuffer.GetWritablePosition();
 		auto header = PacketHeader{ pkt._packetId, pkt._bodySize };
@@ -66,16 +49,8 @@ namespace MDServerNetLib
 		memcpy_s(dest + PacketHeaderSize, _sendBuffer.CheckAvailableSpaceSize() - PacketHeaderSize, pkt._body.c_str(), pkt._bodySize);
 
 		_sendBuffer.Commit(pkt._bodySize + PacketHeaderSize);
-		_logger->Write(MDUtillity::LogType::INFO, "%s | Commit Send", __FUNCTION__);
+		_logger->Write(MDUtillity::LogType::INFO, "%s | SessionFunc Commit Send Size: %d ,IsSendable(%d)", __FUNCTION__ ,(int) pkt._bodySize + PacketHeaderSize, _isSendAvailable.load());
 
-		if (_isSendAvailable.load() == true)
-		{
-			_logger->Write(MDUtillity::LogType::INFO, "%s | IS Sendable", __FUNCTION__);
-		}
-		else
-		{
-			_logger->Write(MDUtillity::LogType::INFO, "%s | IS NOT Sendable", __FUNCTION__);
-		}
 
 		return true;
 	}
@@ -84,7 +59,7 @@ namespace MDServerNetLib
 	{
 		if (!IsConnected())
 		{
-			_logger->Write(MDUtillity::LogType::INFO, "%s | now not connected", __FUNCTION__);
+			_logger->Write(MDUtillity::LogType::INFO, "%s | SessionFunc now not connected", __FUNCTION__);
 			return false;
 		}
 
@@ -100,8 +75,11 @@ namespace MDServerNetLib
 			return false;
 		}
 
+		_logger->Write(MDUtillity::LogType::INFO, "%s | SessionFunc len Not 0" __FUNCTION__);
+
 		if (_isSendAvailable.load() == false)
 		{
+			_logger->Write(MDUtillity::LogType::INFO, "%s | SessionFunc isSendable false", __FUNCTION__);
 			return false;
 		}
 		auto sendContext = new IOContext();
@@ -117,7 +95,7 @@ namespace MDServerNetLib
 		DWORD sendBytes = 0;
 		DWORD flag = 0;
 
-		_logger->Write(MDUtillity::LogType::INFO, "%s | Send Start send length %d", __FUNCTION__, sendContext->wsaBuf.len);
+		_logger->Write(MDUtillity::LogType::INFO, "%s | SessionFunc Send Start send length %d", __FUNCTION__, sendContext->wsaBuf.len);
 
 		AddRef();
 
@@ -126,14 +104,16 @@ namespace MDServerNetLib
 		{
 			if (WSAGetLastError() != WSA_IO_PENDING)
 			{
+				_logger->Write(MDUtillity::LogType::INFO, "%s |  SessionFunc WSASend Error Not Pending", __FUNCTION__);
 				return false;
 			}
 		}
 		
-		_logger->Write(MDUtillity::LogType::INFO, "%s | Send reserved", __FUNCTION__);
+		
 
 		SetSendable(false);
-
+		
+		_logger->Write(MDUtillity::LogType::INFO, "%s | SessionFunc Send reserved Size:%ud isSendable: %d", __FUNCTION__, sendContext->wsaBuf.len,_isSendAvailable.load());
 		return true;
 	}
 
@@ -190,14 +170,7 @@ namespace MDServerNetLib
 
 		SetSendable(true);
 
-		if (_isSendAvailable.load() == true)
-		{
-			_logger->Write(MDUtillity::LogType::INFO, "%s | Session %d IS Sendable", __FUNCTION__, index);
-		}
-		else
-		{
-			_logger->Write(MDUtillity::LogType::INFO, "%s | Session %d IS NOT Sendable", __FUNCTION__, index);
-		}
+		_logger->Write(MDUtillity::LogType::INFO, "%s | SessionFunc Session %d IS Sendable(%d)", __FUNCTION__, index, _isSendAvailable.load());
 
 	}
 

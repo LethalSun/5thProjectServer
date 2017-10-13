@@ -414,17 +414,8 @@ namespace MDServerNetLib
 		{
 			//센드 버퍼를 처리해 준다.
 			sessionAddr->CompleteSend(dataSize);
-			if (sessionAddr->_isSendAvailable.load() == true)
-			{
-				_logger->Write(MDUtillity::LogType::INFO, "%s | Session %d IS Sendable", __FUNCTION__, sessionAddr->index);
-			}
-			else
-			{
-				_logger->Write(MDUtillity::LogType::INFO, "%s | Session %d IS NOT Sendable", __FUNCTION__, sessionAddr->index);
-			}
 
-
-			_logger->Write(MDUtillity::LogType::DEBUG, "%s | Complete Send, Session(%d),size(%hd)", __FUNCTION__, sessionAddr->index, dataSize);
+			_logger->Write(MDUtillity::LogType::DEBUG, "%s | IOCP Complete Send, Session(%d),size(%hd) IsSendable(%d)", __FUNCTION__, sessionAddr->index, dataSize, sessionAddr->_isSendAvailable.load());
 
 		}
 
@@ -450,7 +441,7 @@ namespace MDServerNetLib
 		{
 			auto session = _sessionPool.get()->GetSessionByIndex(pkt._sessionIdx);
 			session->PostSendBuffer(pkt);
-			_logger->Write(MDUtillity::LogType::DEBUG, "%s | Packet SEND, Session(%d), Packet ID(%hd),size(%hd)", __FUNCTION__, pkt._sessionIdx, pkt._packetId, pkt._bodySize);
+			_logger->Write(MDUtillity::LogType::DEBUG, "%s | tryPop Packet SEND, Session(%d), Packet ID(%hd),size(%hd)", __FUNCTION__, pkt._sessionIdx, pkt._packetId, pkt._bodySize);
 
 		}
 
@@ -537,7 +528,7 @@ namespace MDServerNetLib
 		{
 			_logger->Write(MDUtillity::LogType::INFO, "%s | WSARecv Faild", __FUNCTION__);
 		}
-		_logger->Write(MDUtillity::LogType::DEBUG, "%s | Session %d Start Recive", __FUNCTION__, sessionAddr->index);
+		//_logger->Write(MDUtillity::LogType::DEBUG, "%s | Session %d Start Recive", __FUNCTION__, sessionAddr->index);
 		return 0;
 	}
 
@@ -548,7 +539,7 @@ namespace MDServerNetLib
 
 		_recvQueue->push(pkt);
 
-		_logger->Write(MDUtillity::LogType::DEBUG, "%s | Packet Recive, Session(%d), Packet ID(%hd),size(%hd)", __FUNCTION__, sessionIndex, pktId, bodysize);
+		//_logger->Write(MDUtillity::LogType::DEBUG, "%s | Packet Recive, Session(%d), Packet ID(%hd),size(%hd)", __FUNCTION__, sessionIndex, pktId, bodysize);
 	}
 
 

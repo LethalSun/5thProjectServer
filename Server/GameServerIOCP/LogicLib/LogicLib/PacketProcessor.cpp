@@ -446,7 +446,7 @@ namespace LogicLib
 		MDServerNetLib::PacketRaw resPacket(sessionIdx, packetID, bodySize, body.c_str());
 
 		_sendQue->push(resPacket);
-		_logger->Write(MDUtillity::LogType::DEBUG, "%s | Packet SEND, Session(%d), Packet ID(%hd),size(%hd)", __FUNCTION__, sessionIdx, packetID, bodySize);
+		_logger->Write(MDUtillity::LogType::DEBUG, "%s | Logic Packet SEND, Session(%d), Packet ID(%hd),size(%hd)", __FUNCTION__, sessionIdx, packetID, bodySize);
 		return true;
 	}
 
